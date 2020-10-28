@@ -1,34 +1,41 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Context } from '../../Context/AuthContext';
 
 function HomePage(props) {
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+    const email = useRef('');
+    const password = useRef('');
     const { authenticated, handleLogin } = useContext(Context);
-    console.log(authenticated);
+
     return (
         <div>
             <input
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                    email.current = e.target.value;
+                }}
                 type='email'
                 placeholder='Email'
+                name='email'
             />
             <input
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                    password.current = e.target.value;
+                }}
                 type='password'
                 placeholder='Password'
+                name='password'
             />
+
             <button
                 onClick={() => {
-                    handleLogin(email, password);
+                    handleLogin(email.current, password.current);
                 }}>
-                {' '}
-                login{' '}
+                login
             </button>
-            <Link to='/register'> Não tem uma conta? Cadastre-se aqui </Link>
-            <br />
+            <p>
+                Não tem uma conta? <Link to='/register'> Cadastre-se aqui</Link>
+            </p>
         </div>
     );
 }

@@ -1,40 +1,55 @@
-import React, { useState, useContext } from 'react';
-
+import React, { useContext, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { Context } from '../../Context/AuthContext';
 
 export default function Register() {
-    const [name, setName] = useState();
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+    const name = useRef('');
+    const email = useRef('');
+    const password = useRef('');
     const { handleRegister } = useContext(Context);
 
     return (
         <div>
             <div>
-                Nome{' '}
-                <input onChange={(e) => setName(e.target.value)} type='text' />
+                Nome
+                <input
+                    onChange={(e) => {
+                        name.current = e.target.value;
+                    }}
+                    type='text'
+                />
             </div>
             <div>
-                Email{' '}
+                Email
                 <input
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => {
+                        email.current = e.target.value;
+                    }}
                     type='email'
                 />
             </div>
             <div>
-                Senha{' '}
+                Senha
                 <input
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => {
+                        password.current = e.target.value;
+                    }}
                     type='password'
                 />
             </div>
             <button
                 onClick={() => {
-                    handleRegister(name, email, password);
+                    handleRegister(
+                        name.current,
+                        email.current,
+                        password.current
+                    );
                 }}>
-                {' '}
-                cadastrar{' '}
+                cadastrar
             </button>
+            <p>
+                Já possui uma conta? <Link to='/'>Faça login</Link>
+            </p>
         </div>
     );
 }
