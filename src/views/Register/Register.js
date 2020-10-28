@@ -10,33 +10,27 @@ export default function Register() {
 
     return (
         <div>
-            <div>
-                Nome
-                <input
-                    onChange={(e) => {
-                        name.current = e.target.value;
-                    }}
-                    type='text'
-                />
-            </div>
-            <div>
-                Email
-                <input
-                    onChange={(e) => {
-                        email.current = e.target.value;
-                    }}
-                    type='email'
-                />
-            </div>
-            <div>
-                Senha
-                <input
-                    onChange={(e) => {
-                        password.current = e.target.value;
-                    }}
-                    type='password'
-                />
-            </div>
+            Nome
+            <input
+                onChange={(e) => {
+                    name.current = e.target.value;
+                }}
+                type='text'
+            />
+            Email
+            <input
+                onChange={(e) => {
+                    email.current = e.target.value;
+                }}
+                type='email'
+            />
+            Senha
+            <input
+                onChange={(e) => {
+                    password.current = e.target.value;
+                }}
+                type='password'
+            />
             <button
                 onClick={() => {
                     handleRegister(

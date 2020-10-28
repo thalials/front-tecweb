@@ -6,7 +6,7 @@ import { Context } from '../../Context/AuthContext';
 function HomePage(props) {
     const email = useRef('');
     const password = useRef('');
-    const { authenticated, handleLogin } = useContext(Context);
+    const { authenticated, handleLogin, handleLogout } = useContext(Context);
 
     return (
         <div>
@@ -29,6 +29,7 @@ function HomePage(props) {
 
             <button
                 onClick={() => {
+                    // handleLogout()
                     handleLogin(email.current, password.current);
                 }}>
                 login
