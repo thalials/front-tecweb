@@ -1,0 +1,15 @@
+.Login {
+
+    padding: 15px 0 0 0;
+    align-items: center;
+    
+}
+
+.containerLogin {
+    display: grid;
+    margin: 20px;
+}
+
+.buttom {
+    margin: 10px;
+}

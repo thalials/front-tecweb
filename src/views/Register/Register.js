@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-
+// import { AppBar, Toolbar, IconButton, MenuIcon } from '@material-ui/core';
 import { Context } from '../../Context/AuthContext';
 
 export default function Register() {
@@ -10,6 +10,7 @@ export default function Register() {
 
     return (
         <div>
+            
             <div>
                 Nome{' '}
                 <input onChange={(e) => setName(e.target.value)} type='text' />
