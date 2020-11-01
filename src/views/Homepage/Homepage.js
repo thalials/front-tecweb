@@ -1,11 +1,13 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Context } from '../../Context/AuthContext';
+import LoadingIndicator from '../../Components/LoadingIndicator';
 
 function HomePage(props) {
     const email = useRef('');
     const password = useRef('');
+    const [loading, setLoading] = useState(true);
     const { authenticated, handleLogin, handleLogout } = useContext(Context);
 
     return (
@@ -30,7 +32,7 @@ function HomePage(props) {
             <button
                 onClick={() => {
                     // handleLogout()
-                    handleLogin(email.current, password.current);
+                    handleLogin(email.current, password.current).then(() => {});
                 }}>
                 login
             </button>

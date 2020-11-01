@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 
-
 import api from '../../api';
 import history from '../../history';
 
@@ -20,7 +19,11 @@ export default function useAuth() {
         setLoading(false);
         // }, 2000);
     }, []);
-
+    /**
+     *
+     * @param {String} email
+     * @param {String} password
+     */
     async function handleLogin(email, password) {
         if (!email) {
             // se o email não estiver preenchido
