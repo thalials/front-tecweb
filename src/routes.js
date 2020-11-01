@@ -1,29 +1,57 @@
 import React, { useContext } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import HomePage from './views/Homepage';
+
+import Login from './views/Login';
 import Register from './views/Register';
-import { Context } from './Context/AuthContext';
+import Homepage from './views/Homepage';
 import LoadingPage from './views/LoadingPage';
 
-function CustomRoute({ isPrivate, ...rest }) {
-    const { authenticated, loading } = useContext(Context);
+import { Context } from './Context/AuthContext';
+import { AppBar, Toolbar } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+
+function CustomRoute({ isPrivate, appBarOff, ...rest }) {
+    const { authenticated, loading, handleLogout } = useContext(Context);
     console.log(authenticated);
 
     if (loading) {
         return <LoadingPage />;
     }
     if (isPrivate && !authenticated) {
-        return <Redirect to='/' />;
+        return <Redirect to='/login' />;
     }
 
-    return <Route {...rest} />;
+    return (
+        <>
+            {!appBarOff && (
+                <AppBar position='static'>
+                    <Toolbar>
+                        <Typography variant='h6'>Logo</Typography>
+                        <button
+                            onClick={() => {
+                                handleLogout();
+                            }}>
+                            logout
+                        </button>
+                    </Toolbar>
+                </AppBar>
+            )}
+            <Route {...rest} />
+        </>
+    );
 }
 
 export default function Routes() {
     return (
         <Switch>
-            <CustomRoute exact path='/' component={HomePage} />
-            <CustomRoute exact path='/register' component={Register} />
+            <CustomRoute exact path='/login' component={Login} appBarOff />
+            <CustomRoute
+                exact
+                path='/register'
+                component={Register}
+                appBarOff
+            />
+            <CustomRoute exact path='/' component={Homepage} isPrivate />
         </Switch>
     );
 }

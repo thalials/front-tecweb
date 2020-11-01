@@ -15,9 +15,9 @@ export default function useAuth() {
             )}`;
             setAuthenticated(true);
         }
-        // setTimeout(() => {
-        setLoading(false);
-        // }, 2000);
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
     }, []);
     /**
      *
@@ -45,14 +45,14 @@ export default function useAuth() {
         localStorage.setItem('token', JSON.stringify(data.token));
         localStorage.setItem('username', JSON.stringify(data?.user?.name));
         setAuthenticated(true); // antes e history.push
-        // history.push("/{{{rotaDeUsuariosAutenticados}}}")
+        history.push('/');
     }
     function handleLogout() {
         setAuthenticated(false);
         localStorage.removeItem('token');
         localStorage.removeItem('username');
         api.defaults.headers.Authorization = undefined;
-        history.push('/');
+        history.push('/login');
     }
     async function handleRegister(name, email, password) {
         // teste com name
@@ -77,7 +77,7 @@ export default function useAuth() {
             window.alert('A senha deve ser preenchida');
             return;
         }
-        const { data } = await api.post('/auth/register', {
+        await api.post('/auth/register', {
             name,
             email,
             password

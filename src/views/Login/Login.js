@@ -1,48 +1,33 @@
-import React, { useState, useContext, useRef, useEffect } from 'react';
+import React, { useContext, useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Context } from '../../Context/AuthContext';
 import { TextField } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import LoadingIndicator from '../../Components/LoadingIndicator';
-import './styles.css';
 
-export default function Register() {
-    const name = useRef('');
+import './style.css';
+// import { MenuIcon } from '@material-ui/icons';
+
+import { Context } from '../../Context/AuthContext';
+import LoadingIndicator from '../../Components/LoadingIndicator';
+import history from '../../history';
+
+function HomePage(props) {
     const email = useRef('');
     const password = useRef('');
     const [loading, setLoading] = useState(false);
-    const { handleRegister, handleLogout, authenticated } = useContext(Context);
+    const { authenticated, handleLogin, handleLogout } = useContext(Context);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         // IIFE
         if (authenticated) {
             (async () => {
                 await handleLogout();
             })();
         }
-    }, [authenticated]);
+    }, []);
 
     return (
-        <div className='register-outer-container'>
-            <div className='register-inner-container'>
-                <TextField
-                    onChange={(e) => {
-                        name.current = e.target.value;
-                    }}
-                    type='text'
-                    label='Nome'
-                    variant='outlined'
-                    margin='dense'
-                    size='small'
-                    color='primary'
-                    fullWidth={true}
-                    InputProps={{
-                        className: 'text-field'
-                    }}
-                    InputLabelProps={{
-                        className: 'text-field-label'
-                    }}
-                />
+        <div className='homepage-outer-container'>
+            <div className='containerLogin'>
                 <TextField
                     onChange={(e) => {
                         email.current = e.target.value;
@@ -77,33 +62,28 @@ export default function Register() {
                         className: 'text-field-label'
                     }}
                 />
-                <div className='register-element'>
+                <div className='login-element'>
                     <Button
                         variant='contained'
                         color='primary'
                         fullWidth={true}
                         onClick={() => {
                             setLoading(true);
-                            handleRegister(
-                                name.current,
+                            handleLogin(
                                 email.current,
                                 password.current
-                            ).finally(() => {
-                                setLoading(false);
-                            });
+                            ).finally(() => setLoading(false));
                         }}>
-                        {loading ? (
-                            <LoadingIndicator width={30} />
-                        ) : (
-                            'Cadastrar'
-                        )}
+                        {loading ? <LoadingIndicator width={30} /> : 'Login'}
                     </Button>
                 </div>
-
                 <p className='text'>
-                    Já possui uma conta? <Link to='/'>Faça login</Link>
+                    Não tem uma conta?{' '}
+                    <Link to='/register'>Cadastre-se aqui</Link>
                 </p>
             </div>
         </div>
     );
 }
+
+export default HomePage;

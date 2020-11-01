@@ -2,8 +2,8 @@ import React from 'react';
 
 // import { Container } from './styles';
 
-function Homepage() {
+function TopBar() {
   return <div />;
 }
 
-export default Homepage;
+export default TopBar;
