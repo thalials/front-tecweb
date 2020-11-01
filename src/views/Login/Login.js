@@ -4,7 +4,6 @@ import { TextField } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 
 import './style.css';
-// import { MenuIcon } from '@material-ui/icons';
 
 import { Context } from '../../Context/AuthContext';
 import LoadingIndicator from '../../Components/LoadingIndicator';

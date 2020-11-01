@@ -1,7 +1,7 @@
 .homepage-outer-container {
     display: flex;
     height: 100%;
-    background: url(https://source.unsplash.com/1600x900/?norway);
+    background: url(https://source.unsplash.com/1600x900/?landscape);
     background-size: cover;
 }
 
@@ -9,7 +9,7 @@
     flex-direction: column;
     margin: auto 10% auto 30px;
     /* cor a ser definida */
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.5);
     padding: 10px;
     width: 500px;
     border: 1px hidden transparent;
@@ -19,7 +19,7 @@
     -ms-border-radius: 8px;
     -o-border-radius: 8px;
 }
-.text-field { 
+.text-field {
     background-color: rgba(255, 255, 255, 0.5);
 }
 .text-label {
