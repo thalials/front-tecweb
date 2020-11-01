@@ -19,11 +19,7 @@ export default function useAuth() {
             setLoading(false);
         }, 2000);
     }, []);
-    /**
-     *
-     * @param {String} email
-     * @param {String} password
-     */
+
     async function handleLogin(email, password) {
         if (!email) {
             // se o email não estiver preenchido
