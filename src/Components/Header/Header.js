@@ -14,8 +14,8 @@ function Header() {
         const regex = /.*query.*/g;
     }
     const data = {
-        country: 'BR',
-        result: 'São Paulo'
+        // country: 'BR',
+      //  result: 'São Paulo'
     };
 
     return (
