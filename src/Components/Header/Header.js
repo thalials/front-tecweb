@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react';
-import { AppBar, Toolbar, TextField } from '@material-ui/core';
+import React, { useContext } from 'react';
+import { AppBar, Toolbar } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 
 import { Context } from '../../Context/AuthContext';

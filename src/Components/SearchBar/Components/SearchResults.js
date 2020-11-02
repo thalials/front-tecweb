@@ -1,7 +1,5 @@
 import React from 'react';
 
-// import { Container } from './styles';
-
 function SearchResults(props) {
     const { data } = props;
 
@@ -18,8 +16,22 @@ function ResultItem(props) {
     const { country, name } = props.item;
     return (
         <li className='result-item'>
-            <p className='result-left'>{country}</p>
-            <p className='result-right'>{name}</p>
+            <button
+                to='/'
+                onClick={() => {
+                    console.log(country);
+                }}
+                className='result-left'>
+                {country}
+            </button>
+            <button
+                to='/'
+                onClick={() => {
+                    console.log(name);
+                }}
+                className='result-right'>
+                {name}
+            </button>
         </li>
     );
 }

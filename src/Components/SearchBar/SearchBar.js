@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
-// import { Container } from './styles';
 import './styles.css';
 import SearchResults from './Components/SearchResults';
 const data = require('../../Data/cities.json');
@@ -42,6 +41,7 @@ function SearchBar(props) {
                 className='search-input'
                 placeholder='Pesquisar lugares'
                 type='text'
+                value={searchInput}
                 onChange={(e) => {
                     setSearchInput(e.target.value);
                 }}
@@ -49,8 +49,11 @@ function SearchBar(props) {
             <button
                 className='search-button'
                 title='Pesquisar'
-                onClick={() => {}}>
-                <i class='fas fa-search'></i>
+                onClick={() => {
+                    setSearchInput('');
+                    setSearchResult([]);
+                }}>
+                <i class='fas fa-times fa-1x'></i>
             </button>
             {searchResult && <SearchResults data={searchResult} />}
         </>
