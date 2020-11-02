@@ -1,22 +1,13 @@
-import React, { useContext, useState } from 'react';
-import { AppBar, Toolbar, TextField } from '@material-ui/core';
+import React, { useContext } from 'react';
+import { AppBar, Toolbar } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 
 import { Context } from '../../Context/AuthContext';
-
+import SearchBar from '../../Components/SearchBar';
 import './styles.css';
 
 function Header() {
     const { handleLogout } = useContext(Context);
-    const [searchResult, setSearchResult] = useState(true);
-
-    function search(query) {
-        const regex = /.*query.*/g;
-    }
-    const data = {
-        // country: 'BR',
-      //  result: 'São Paulo'
-    };
 
     return (
         <AppBar position='static'>
@@ -24,28 +15,7 @@ function Header() {
                 <Typography variant='h6'>Logo</Typography>
 
                 <div className='toolbar-middle'>
-                    <input
-                        className='search-input'
-                        placeholder='Pesquisar lugares'
-                        type='text'
-                        onClick={(e) => {
-                            search(e.target.value);
-                        }}
-                    />
-                    <button
-                        className='search-button'
-                        title='Pesquisar'
-                        onClick={() => {}}>
-                        <i class='fas fa-search'></i>
-                    </button>
-                    {searchResult && (
-                        <ul className='search-results'>
-                            <li className='result-item'>
-                                <div className='result-left'>{data.country}</div>
-                                <div className='result-right'>{data.result}</div>
-                            </li>
-                        </ul>
-                    )}
+                    <SearchBar />
                 </div>
                 <button
                     className='logout-button'
