@@ -31,12 +31,13 @@ function HomePage(props) {
                     onChange={(e) => {
                         email.current = e.target.value;
                     }}
-                    type='email'
+                    // type='email'
                     label='Email'
                     variant='outlined'
                     margin='dense'
                     size='small'
                     fullWidth={true}
+                    autoComplete={false}
                     InputProps={{
                         className: 'text-field'
                     }}
@@ -53,6 +54,7 @@ function HomePage(props) {
                     variant='outlined'
                     margin='dense'
                     size='small'
+                    autoComplete={false} 
                     fullWidth={true}
                     InputProps={{
                         className: 'text-field'

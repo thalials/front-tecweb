@@ -1,7 +1,10 @@
 .MuiToolbar-root {
     display: flex;
+    /* position: static; */
     justify-content: space-between;
     padding: 0 1rem;
+    width: 100% !important;
+    box-sizing: border-box
 }
 
 .toolbar-middle {

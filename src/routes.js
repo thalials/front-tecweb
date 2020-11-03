@@ -7,6 +7,7 @@ import Homepage from './views/Homepage';
 import LoadingPage from './views/LoadingPage';
 
 import { Context } from './Context/AuthContext';
+import SearchResult from './views/SearchResult/SearchResult';
 
 function CustomRoute({ isPrivate, ...rest }) {
     const { authenticated, loading, handleLogout } = useContext(Context);
@@ -27,7 +28,13 @@ export default function Routes() {
         <Switch>
             <CustomRoute exact path='/login' component={Login} />
             <CustomRoute exact path='/register' component={Register} />
-            <CustomRoute exact path='/' component={Homepage} />
+            <CustomRoute exact path='/' component={Homepage} isPrivate />
+            <CustomRoute
+                exact
+                path='/:city_id'
+                component={SearchResult}
+                isPrivate
+            />
         </Switch>
     );
 }

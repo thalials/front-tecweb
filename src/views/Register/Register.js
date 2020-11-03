@@ -47,7 +47,7 @@ export default function Register() {
                     onChange={(e) => {
                         email.current = e.target.value;
                     }}
-                    type='email'
+                    // type='email'
                     label='Email'
                     variant='outlined'
                     margin='dense'

@@ -1,0 +1,26 @@
+.search-result-outer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 100%; */
+}
+
+.search-result-card {
+    background-color: #ccc;
+    padding: 1rem;
+    box-sizing: border-box;
+    width: 80vw;
+    max-width: 800px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+.result-card-outer {
+    display: grid;
+    row-gap: 0.5rem;
+}
+
+.city-map {
+    /* display: flex; */
+    max-width: 800px;
+    max-height: 300px;
+    box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.13);
+}
