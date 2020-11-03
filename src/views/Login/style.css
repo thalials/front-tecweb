@@ -9,7 +9,7 @@
     flex-direction: column;
     margin: auto 10% auto 30px;
     /* cor a ser definida */
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(24, 24, 24, 0.9);
     padding: 10px;
     width: 500px;
     border: 1px hidden transparent;
@@ -19,15 +19,22 @@
     -ms-border-radius: 8px;
     -o-border-radius: 8px;
 }
-.text-field {
-    background-color: rgba(255, 255, 255, 0.5);
+.text-field, .text-field:-internal-autofill-selected {
+    background-color: rgba(24, 24, 24, 0.8) !important;
+    color: #fafafa;
 }
-.text-label {
-    color: white;
+.text-field-label {
+    color: white !important;
     font-weight: bold;
 }
+
+.text {
+    color: #fafafa;
+}
+.text a {
+    text-decoration: none;
+    color: #7789f0;
+}
 .login-element {
-    /* display: flex; */
-    /* width: 100% */
     margin: 8px 0px;
 }

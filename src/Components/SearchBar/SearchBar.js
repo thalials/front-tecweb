@@ -1,33 +1,26 @@
 import React, { useState, useEffect, useCallback } from 'react';
-
+import useDebouncedEffect from './hooks/useDebounced';
 import './styles.css';
 import SearchResults from './Components/SearchResults';
-const data = require('../../Data/cities.json');
+const data = require('../../Data/short_cities.json');
 
 function SearchBar(props) {
     // const { data } = props;
     const [searchResult, setSearchResult] = useState([]);
     const [searchInput, setSearchInput] = useState('');
-    // const data = dummyData;
 
     function search(searchText) {
         const regex = new RegExp(`.*${searchText.toLowerCase()}.*`, 'i');
         console.log(searchText);
-        if (searchText.length > 4) {
+        if (searchText.length > 2) {
             let matches = data.filter((element) => {
                 return (
                     element.country.toLowerCase().match(regex) ||
                     element.name.toLowerCase().match(regex)
                 );
             });
-            const results = matches.map(({ country, name }) => {
-                return {
-                    country,
-                    name
-                };
-            });
+            const results = matches.map((item) => item);
             setSearchResult(results);
-            console.log(matches);
         } else {
             setSearchResult([]);
         }
@@ -55,29 +48,9 @@ function SearchBar(props) {
                 }}>
                 <i class='fas fa-times fa-1x'></i>
             </button>
-            {searchResult && <SearchResults data={searchResult} />}
+            {searchResult && <SearchResults data={searchResult} callback={setSearchResult}/>}
         </>
     );
 }
-const dummyData = [
-    { country: 'BR', result: 'Brasil' },
-    { country: 'BR', result: 'São Paulo' }
-];
-
-const useDebouncedEffect = (effect, delay, deps) => {
-    const callback = useCallback(() => {
-        effect(deps[0]);
-    }, deps);
-
-    useEffect(() => {
-        const handler = setTimeout(() => {
-            callback();
-        }, delay);
-
-        return () => {
-            clearTimeout(handler);
-        };
-    }, [callback, delay]);
-};
 
 export default SearchBar;

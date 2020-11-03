@@ -40,6 +40,7 @@
 
 .search-results {
     position: absolute;
+    z-index: 20;
     top: 4rem;
     width: 14rem;
     display: grid;
@@ -48,12 +49,12 @@
 .result-item {
     width: 100%;
     display: grid;
-    /* grid-auto-flow: column; */
+    text-decoration: none;
     grid-template-columns: 2rem 12rem;
     column-gap: 1px;
 }
 
-.result-item button {
+.result-item div {
     color: white;
     font-family: 'Gill Sans', 'Gill Sans MT';
     text-decoration: none;
@@ -63,9 +64,7 @@
     overflow: hidden;
     cursor: pointer;
 }
-.result-item button:active {
-    opacity: 0.7
-}
+
 .result-item .result-left {
     text-align: center;
     color: #2429af;
