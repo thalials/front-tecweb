@@ -9,7 +9,7 @@ import history from './history';
 
 function App() {
     return (
-        <div className='app' style={{ width: '100vw', height: '100vh' }}>
+        <div className='app'>
             <AuthProvider>
                 <Router history={history}>
                     <Routes />
