@@ -9,6 +9,8 @@ import Box from '@material-ui/core/Box';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { BorderBottom } from '@material-ui/icons';
 
+import Travels from '../../views/Homepage/Travels';
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -79,7 +81,7 @@ function HorizontalTabs() {
       </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        Item One
+        <Travels/>
       </TabPanel>
       <TabPanel value={value} index={1}>
         Item Two
