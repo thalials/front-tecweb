@@ -42,7 +42,7 @@ function SearchResult(props) {
     return (
         <div>
             <Header />
-            <section className="test" style={{ height:'90vh', justifyContext:'center', display:'flex'}}>
+            <section className="search-result-main">
             <div className='search-result-outer'>
                 <div className='search-result-card'>
                     {loading ? (

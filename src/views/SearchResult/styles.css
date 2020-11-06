@@ -24,3 +24,9 @@
     max-height: 300px;
     box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.13);
 }
+.search-result-main {
+    height: 90vh;
+    justify-content: center;
+    display: block;
+    margin: 25px 0 0 0 ;
+}
