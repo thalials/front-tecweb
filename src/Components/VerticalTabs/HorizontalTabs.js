@@ -85,12 +85,15 @@ function HorizontalTabs() {
       </TabPanel>
       <TabPanel value={value} index={1}>
         Item Two
+        { console.log('item two') }
       </TabPanel>
       <TabPanel value={value} index={2}>
         Item Three
+        { console.log('item three') }
       </TabPanel>
       <TabPanel value={value} index={3}>
         Item Four
+        { console.log('item four') }
       </TabPanel>
     </div>
   );

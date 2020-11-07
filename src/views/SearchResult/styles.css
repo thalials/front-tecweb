@@ -34,3 +34,8 @@
 .print-share {
     display: inline;
 }
+
+.favorite::after {
+    color: red;
+
+}

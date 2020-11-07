@@ -121,7 +121,6 @@ function ResultCard(props) {
 
     const curTime= new Date().toLocaleString();
       
-
     return (
         <Card className='result-card-outer'>
 
@@ -157,9 +156,10 @@ function ResultCard(props) {
 
             <CardActions disableSpacing>
                 <div className='print-share'> 
-                    <IconButton 
+                    <IconButton className='favorite'
                     aria-label="add to favorites"
-                    onClick = { handleClickCount }>
+                    onClick = { handleClickCount }
+                    color = 'secondary' >
                         <FavoriteIcon />
                     </IconButton>
                     Liked by: { count }
