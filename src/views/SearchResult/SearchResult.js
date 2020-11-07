@@ -107,28 +107,37 @@ function ResultCard(props) {
     const { country, lat, lng, _id } = city;
     const acronym = city.name.split(/\s/).reduce((response, word) => response += word.slice(0, 1), '')
     const classes = useStyles();
-    const [expanded, setExpanded] = React.useState(false);
+    const [expanded, setExpanded] = useState(false);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
 
+    const [ count, setCount ] = useState(0);
+    // const count = 0;
+    const handleClickCount = () => {
+        setCount(count + 1);
+    };
+
+    const curTime= new Date().toLocaleString();
+      
+
     return (
         <Card className='result-card-outer'>
 
             <CardHeader
-                avatar={
+                avatar = {
                     <Avatar aria-label="recipe" className={classes.avatar}>
                         {acronym}
                     </Avatar>
                 }
-                action={
+                action = {
                     <IconButton aria-label="settings">
                         <MoreVertIcon />
                     </IconButton>
                 }
-                title={city.name}
-                subheader="September 14, 2016 - "
+                title = { city.name }
+                subheader = { curTime } 
             />
 
             <CardMedia className='city-map'>
@@ -147,12 +156,15 @@ function ResultCard(props) {
             </CardContent>
 
             <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                    <FavoriteIcon />
-                </IconButton>
-                {/* <IconButton aria-label="share">
-                    <ShareIcon />
-                </IconButton> */}
+                <div className='print-share'> 
+                    <IconButton 
+                    aria-label="add to favorites"
+                    onClick = { handleClickCount }>
+                        <FavoriteIcon />
+                    </IconButton>
+                    Liked by: { count }
+                </div>
+                
                 <IconButton
                     className={clsx(classes.expand, {
                         [classes.expandOpen]: expanded,
@@ -178,11 +190,11 @@ function ResultCard(props) {
                         Capital: {country.capital}
                     </Typography>
 
-                    <Typography className='country-phone'>
+                    <Typography paragraph className='country-phone'>
                         Phone: +{country.phone}
                     </Typography>
 
-                    <Typography className='country-currency'>
+                    <Typography paragraph className='country-currency'>
                         Currency:
                         <ul className='currency-list'>
                             {country.currency.map((cur) => (
@@ -193,7 +205,7 @@ function ResultCard(props) {
                         </ul>
                     </Typography>
 
-                    <Typography className='country-languages'>
+                    <Typography paragraph className='country-languages'>
                         Language(s):
                         <ul className='language-list'>
                             {country.languages.map((item) => (
@@ -201,18 +213,16 @@ function ResultCard(props) {
                             ))}
                         </ul>
                     </Typography>
-
+                    <div className='print-share'>
+                        <IconButton aria-label="share"
+                            onClick = {() => window.print() } >
+                            <ShareIcon />
+                        </IconButton>
+                        Share this with your friends!
+                    </div>               
+                    
                 </CardContent>
             </Collapse>
-        
-
-            <div className='likes'>
-                <button className='likes'>
-                    <i className='far fa-heart likes'></i>
-                    <i className='fas fa-heart likes'></i>
-                </button>
-                Liked by: {city.likes || 0}
-            </div>
         </Card>
     );
 }
