@@ -6,7 +6,7 @@
 }
 
 .search-result-card {
-    background-color: #ccc;
+    background-color: #F6F6F6;
     padding: 1rem;
     box-sizing: border-box;
     width: 80vw;
@@ -23,4 +23,19 @@
     max-width: 800px;
     max-height: 300px;
     box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.13);
+}
+.search-result-main {
+    height: 90vh;
+    justify-content: center;
+    display: block;
+    margin: 25px 0 0 0 ;
+}
+
+.print-share {
+    display: inline;
+}
+
+.favorite::after {
+    color: red;
+
 }
