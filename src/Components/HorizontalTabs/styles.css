@@ -1,0 +1,36 @@
+.horizontal-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.tabs {
+    display: flex;
+    height: fit-content;
+    min-height: 60px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #3f51b5;
+    box-sizing: border-box;
+    cursor: pointer;
+    border: 3px transparent;
+    transition: ease-in-out 100ms;
+    -webkit-transition: ease-in-out 100ms;
+    -moz-transition: ease-in-out 100ms;
+    -ms-transition: ease-in-out 100ms;
+    -o-transition: ease-in-out 100ms;
+}
+.tabs:after {
+    border-bottom: 3px solid #cc2200;
+}
+
+.tab-text {
+    color: #f6f6f6;
+}
+.tab-text:last-child {
+    margin-top: 5px;
+}
+
+.horizontal-tabs .tabs:hover {
+    opacity: 0.9;
+}
