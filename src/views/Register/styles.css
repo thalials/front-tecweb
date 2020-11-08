@@ -1,6 +1,6 @@
 .register-outer-container {
     display: flex;
-    height: 100%;
+    height: 100vh;
     background: url(https://source.unsplash.com/1600x900/?norway);
     background-size: cover;
 }
@@ -28,19 +28,23 @@
     background-color: rgba(24, 24, 24, 0.8) !important;
     color: #fafafa;
 }
+
 .text-field-label {
     color: white !important;
     font-weight: bold;
 }
+
 .text {
     color: #fafafa;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
         sans-serif;
 }
+
 .text a {
     text-decoration: none;
     color: #7789f0;
 }
+
 .register-element {
     margin: 8px 0px;
 }

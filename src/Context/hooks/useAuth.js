@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import api from '../../api';
+import api from '../../API/api';
 import history from '../../history';
 
 export default function useAuth() {
@@ -10,9 +10,7 @@ export default function useAuth() {
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
-            api.defaults.headers.Authorization = `Bearer ${JSON.stringify(
-                token
-            )}`;
+            api.defaults.headers.Authorization = `Bearer ${token}`;
             setAuthenticated(true);
         }
         setTimeout(() => {
@@ -35,11 +33,9 @@ export default function useAuth() {
             email,
             password
         });
-        api.defaults.headers.Authorization = `Bearer ${JSON.stringify(
-            data.token
-        )}`;
-        localStorage.setItem('token', JSON.stringify(data.token));
-        localStorage.setItem('username', JSON.stringify(data?.user?.name));
+        api.defaults.headers.Authorization = `Bearer ${data.token}`;
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('username', data?.user?.name);
         setAuthenticated(true); // antes e history.push
         history.push('/');
     }

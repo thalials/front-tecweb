@@ -55,7 +55,7 @@ function Tab(props) {
             style={{
                 borderBottom: selected === index ? '3px solid #cc2200' : null
             }}>
-            <i class='fas fa-heart tab-text'></i>
+            <i className='fas fa-heart tab-text'></i>
             <span className='tab-text'>{title}</span>
         </button>
     );
