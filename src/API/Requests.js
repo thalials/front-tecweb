@@ -12,9 +12,15 @@ export async function getCityInfo(cityId) {
     const { data } = await api.get(`/places/cities/${cityId}`);
     const { city, token } = await data;
     await saveToken(token);
-    console.log(city);
 
     return city;
+}
+
+export async function listUserPlaces() {
+    const { data } = await api.get('/places/likes');
+    const { places, token } = await data;
+    await saveToken(token);
+    return places;
 }
 
 export async function getCurrencyInfo(currencyArray) {

@@ -13,13 +13,9 @@ import { red } from '@material-ui/core/colors';
 import { Favorite, FavoriteBorderOutlined } from '@material-ui/icons';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-
-import axios from 'axios';
+import MoreVertIcon from '@material-ui/icons/MoreVert'; 
 import Header from '../../Components/Header';
-import LoadingIndicator from '../../Components/LoadingIndicator/LoadingIndicator';
-import api from '../../API/api';
-
+import LoadingIndicator from '../../Components/LoadingIndicator/LoadingIndicator'; 
 import { createQRCodeURI, toggleLike, getCityInfo } from '../../API/Requests';
 
 import './styles.css';
@@ -88,8 +84,7 @@ function ResultCard(props) {
     };
 
     async function handleLike() {
-        toggleLike(id).then((placeIsLiked) => {
-            console.log(placeIsLiked);
+        toggleLike(id).then((placeIsLiked) => { 
             setLikedByMe(placeIsLiked);
             if (placeIsLiked) {
                 setLikes((prev) => prev + 1);
