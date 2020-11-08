@@ -2,7 +2,7 @@ import api from './api';
 import axios from 'axios';
 
 export async function toggleLike(cityId) {
-    const response = await api.put(`/places/${cityId}`);
+    const response = await api.put(`/places/like/${cityId}`);
     const { token, placeIsLiked } = response.data;
     await saveToken(token);
     return placeIsLiked;

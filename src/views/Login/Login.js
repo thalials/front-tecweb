@@ -8,11 +8,13 @@ import './style.css';
 import { Context } from '../../Context/AuthContext';
 import LoadingIndicator from '../../Components/LoadingIndicator';
 import history from '../../history';
+import Feedback from '../../Components/Feedback';
 
 function HomePage(props) {
     const email = useRef('');
     const password = useRef('');
     const [loading, setLoading] = useState(false);
+    const [feedback, setFeedback] = useState({});
     const { authenticated, handleLogin, handleLogout } = useContext(Context);
 
     useLayoutEffect(() => {
@@ -54,7 +56,7 @@ function HomePage(props) {
                     variant='outlined'
                     margin='dense'
                     size='small'
-                    autoComplete={false} 
+                    autoComplete={false}
                     fullWidth={true}
                     InputProps={{
                         className: 'text-field'
@@ -64,16 +66,21 @@ function HomePage(props) {
                     }}
                 />
                 <div className='login-element'>
+                    {!loading && !!Object.values(feedback).length ? (
+                        <Feedback feedback={feedback} />
+                    ) : null}
                     <Button
                         variant='contained'
                         color='primary'
                         fullWidth={true}
                         onClick={() => {
                             setLoading(true);
-                            handleLogin(
-                                email.current,
-                                password.current
-                            ).finally(() => setLoading(false));
+                            handleLogin(email.current, password.current).then(
+                                (message) => {
+                                    setFeedback(message);
+                                    setLoading(false);
+                                }
+                            );
                         }}>
                         {loading ? <LoadingIndicator width={30} /> : 'Login'}
                     </Button>

@@ -20,9 +20,9 @@
 }
 
 .text-field,
-.text-field:-webkit-autofill:hover, 
-.text-field:-webkit-autofill:focus, 
-.text-field:-webkit-autofill:active  {
+.text-field:-webkit-autofill:hover,
+.text-field:-webkit-autofill:focus,
+.text-field:-webkit-autofill:active {
     box-shadow: 0 0 5px black inset !important;
     -webkit-box-shadow: 0 0 5px black inset !important;
     background-color: rgba(24, 24, 24, 0.8) !important;
@@ -47,4 +47,17 @@
 
 .register-element {
     margin: 8px 0px;
+}
+
+.error-message {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
+        sans-serif;
+    text-align: center;
+    padding: 1rem;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
 }

@@ -5,12 +5,14 @@ import { TextField } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import LoadingIndicator from '../../Components/LoadingIndicator';
 import './styles.css';
+import Feedback from '../../Components/Feedback';
 
 export default function Register() {
     const name = useRef('');
     const email = useRef('');
     const password = useRef('');
     const [loading, setLoading] = useState(false);
+    const [feedback, setFeedback] = useState({});
     const { handleRegister, handleLogout, authenticated } = useContext(Context);
 
     useEffect(() => {
@@ -20,7 +22,7 @@ export default function Register() {
                 await handleLogout();
             })();
         }
-    }, [authenticated]);
+    }, []);
 
     return (
         <div className='register-outer-container'>
@@ -78,6 +80,9 @@ export default function Register() {
                     }}
                 />
                 <div className='register-element'>
+                    {!loading && !!Object.values(feedback).length ? (
+                        <Feedback feedback={feedback} />
+                    ) : null}
                     <Button
                         variant='contained'
                         color='primary'
@@ -88,9 +93,13 @@ export default function Register() {
                                 name.current,
                                 email.current,
                                 password.current
-                            ).finally(() => {
-                                setLoading(false);
-                            });
+                            )
+                                .then((message) => {
+                                    setFeedback(message);
+                                })
+                                .finally(() => {
+                                    setLoading(false);
+                                });
                         }}>
                         {loading ? (
                             <LoadingIndicator width={30} />
