@@ -9,7 +9,7 @@ export async function toggleLike(cityId) {
 }
 
 export async function getCityInfo(cityId) {
-    const { data } = await api.get(`/places/${cityId}`);
+    const { data } = await api.get(`/places/cities/${cityId}`);
     const { city, token } = await data;
     await saveToken(token);
     console.log(city);
