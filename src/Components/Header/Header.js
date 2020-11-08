@@ -1,33 +1,55 @@
 import React, { useContext } from 'react';
 import { AppBar, Toolbar } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-
+import { Link } from 'react-router-dom';
 import { Context } from '../../Context/AuthContext';
 import SearchBar from '../../Components/SearchBar';
 import './styles.css';
+import history from '../../history';
 
 function Header() {
     const { handleLogout } = useContext(Context);
-
+    const userName = localStorage.getItem('username');
     return (
         <AppBar position='static'>
             <Toolbar variant='dense' className='toolbar'>
-                <Typography variant='h6'>Logo</Typography>
+                <Link to='/'>
+                    <Typography variant='h6'>Logo</Typography>
+                </Link>
 
                 <div className='toolbar-middle'>
                     <SearchBar />
                 </div>
-                <button
-                    className='logout-button'
-                    title='logout'
-                    onClick={() => {
-                        handleLogout();
-                    }}>
-                    <i class='fas fa-sign-out-alt'></i>
-                </button>
+                <div className='right-items'>
+                    <span className='username'>{nameParser(userName)}</span>
+                    <button
+                        className='my-places'
+                        title='Meus lugares'
+                        onClick={() => {
+                            history.push('/');
+                        }}>
+                        <i className='fas fa-map-marked-alt'></i>
+                    </button>
+                    <button
+                        className='logout-button'
+                        title='logout'
+                        onClick={() => {
+                            handleLogout();
+                        }}>
+                        <i className='fas fa-sign-out-alt'></i>
+                    </button>
+                </div>
             </Toolbar>
         </AppBar>
     );
+}
+
+function nameParser(name) {
+    const [firstName, lastName] = name.split(' ');
+    if (lastName.length) {
+        return `${firstName} ${lastName.substring(0, 1)}.`;
+    }
+    return firstName;
 }
 
 export default Header;

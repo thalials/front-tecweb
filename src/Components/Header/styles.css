@@ -4,7 +4,7 @@
     justify-content: space-between;
     padding: 0 1rem;
     width: 100% !important;
-    box-sizing: border-box
+    box-sizing: border-box;
 }
 
 .toolbar-middle {
@@ -13,18 +13,38 @@
     justify-content: space-between;
 }
 
+.username {
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    font-weight: 600
+}
 
-.logout-button {
+.right-items {
+    display: flex;
+    align-items: center;
+}
+
+.right-items button {
     font-weight: bold;
     padding: 0.5rem;
     border: 1px solid transparent;
     margin: 0;
     margin-left: 10px;
-    background-color: #cc2200;
     color: white;
     border-radius: 4px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     -ms-border-radius: 4px;
     -o-border-radius: 4px;
+    cursor: pointer;
+}
+
+.user-initials {
+    margin-left: 10px; 
+}
+
+.my-places {
+    background-color: #0092cc;
+}
+.logout-button {
+    background-color: #cc2200;
 }

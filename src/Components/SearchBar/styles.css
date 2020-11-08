@@ -41,10 +41,33 @@
 .search-results {
     position: absolute;
     z-index: 20;
-    top: 4rem;
-    width: 14rem;
+    top: 3rem;
+    /* width: 14rem; */
     display: grid;
     row-gap: 0.5rem;
+    max-height: 90vh;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+/* width */
+.search-results::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+.search-results::-webkit-scrollbar-track {
+    background: #00000000;
+}
+
+/* Handle */
+.search-results::-webkit-scrollbar-thumb {
+    background: #3c41c5;
+}
+
+/* Handle on hover */
+.search-results::-webkit-scrollbar-thumb:hover {
+    background: #2429af;
 }
 .result-item {
     width: 100%;
