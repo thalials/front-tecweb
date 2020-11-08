@@ -3,9 +3,40 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: url(https://source.unsplash.com/featured/2160x1215?landscape,lofoten);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .places-card {
-    width: 50vw;
+    width: 90vw;
     max-width: 800px;
+    margin: 1rem 0px;
+}
+.places-card * {
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+.places-card ul {
+    margin: 0.5rem 0;
+}
+.places-card ul li {
+    margin: 0.5rem
+}
+
+.places-card .label {
+    font-weight: bold;
+}
+
+.print-share {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.share-qrcode {
+    padding: 0.5rem;
+    background-color: white;
+    box-shadow: 0px 1px 20px #ccc;
 }

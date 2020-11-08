@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
-
-import { listUserPlaces } from '../../../API/Requests';
+import { Link } from 'react-router-dom';
+import { listUserPlaces, createQRCodeURI } from '../../../API/Requests';
 import LoadingIndicator from '../../../Components/LoadingIndicator';
 
 import clsx from 'clsx';
@@ -20,9 +20,9 @@ import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-import { createQRCodeURI } from '../../../API/Requests';
+import { getCityId } from '../../../Helpers';
 
-import './style.css'
+import './style.css';
 
 function Travels() {
     const [places, setPlaces] = useState(null);
@@ -31,7 +31,6 @@ function Travels() {
         listUserPlaces().then((placesArray) => {
             setPlaces(placesArray);
             setLoading(false);
-            // console.log(places.length);
         });
     }, []);
 
@@ -40,7 +39,9 @@ function Travels() {
             {loading ? (
                 <LoadingIndicator width={30} />
             ) : (
-                places.map((place) => <DisplayPlace place={place} />)
+                places.map((place) => (
+                    <DisplayPlace key={place._id} place={place} />
+                ))
             )}
         </div>
     );
@@ -96,13 +97,13 @@ function DisplayPlace({ place }) {
                             <MoreVertIcon />
                         </IconButton>
                     }
-                    title={city.name}
+                    title={name}
                     subheader={createdAt}
                 />
 
                 <CardMedia className='city-map'>
                     <iframe
-                        src={`https://maps.google.com/maps?q=${city.lat}, ${city.lng}&z=12&output=embed`}
+                        src={`https://maps.google.com/maps?q=${lat}, ${lng}&z=12&output=embed`}
                         width='100%'
                         height='300px'
                         frameBorder='0'></iframe>
@@ -164,7 +165,10 @@ function DisplayPlace({ place }) {
                         </Typography>
 
                         <Typography paragraph className='country-capital'>
-                            Capital: {country.capital}
+                            <span className='label'>Capital: </span>
+                            <Link to={getCityId(country.capital)}>
+                                {country.capital}
+                            </Link>
                         </Typography>
 
                         <Typography paragraph className='country-phone'>
@@ -173,7 +177,9 @@ function DisplayPlace({ place }) {
 
                         {!!country.currency.length && (
                             <div className='country-currency'>
-                                Moeda(s) utilizada(s) nesse país:
+                                <span className='label'>
+                                    Moeda(s) utilizada(s) nesse país:
+                                </span>
                                 <ul className='currency-list'>
                                     {country.currency.map((cur, index) => (
                                         <li
@@ -188,7 +194,9 @@ function DisplayPlace({ place }) {
                         )}
 
                         <div className='country-languages'>
-                            Language(s):
+                            <span className='label'>
+                                Linguagem(ns) utilizada(s) nesse país:
+                            </span>
                             <ul className='language-list'>
                                 {country.languages.map((item, index) => (
                                     <li key={index} className='language-item'>
