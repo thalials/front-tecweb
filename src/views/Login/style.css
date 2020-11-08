@@ -1,6 +1,6 @@
 .homepage-outer-container {
     display: flex;
-    height: 100%;
+    height: 100vh;
     background: url(https://source.unsplash.com/1600x900/?landscape);
     background-size: cover;
 }

@@ -11,7 +11,7 @@ function SearchBar(props) {
 
     function search(searchText) {
         const regex = new RegExp(`.*${searchText.toLowerCase()}.*`, 'i');
-        console.log(searchText);
+
         if (searchText.length > 2) {
             let matches = data.filter((element) => {
                 return (
@@ -46,9 +46,11 @@ function SearchBar(props) {
                     setSearchInput('');
                     setSearchResult([]);
                 }}>
-                <i class='fas fa-times fa-1x'></i>
+                <i className='fas fa-times fa-1x'></i>
             </button>
-            {searchResult && <SearchResults data={searchResult} callback={setSearchResult}/>}
+            {searchResult && (
+                <SearchResults data={searchResult} callback={setSearchResult} />
+            )}
         </>
     );
 }
