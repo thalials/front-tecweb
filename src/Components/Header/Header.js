@@ -6,6 +6,7 @@ import { Context } from '../../Context/AuthContext';
 import SearchBar from '../../Components/SearchBar';
 import './styles.css';
 import history from '../../history';
+import Logo from './logo'
 
 function Header() {
     const { handleLogout } = useContext(Context);
@@ -13,8 +14,9 @@ function Header() {
     return (
         <AppBar position='static'>
             <Toolbar variant='dense' className='toolbar'>
-                <Link to='/'>
-                    <Typography variant='h6'>Logo</Typography>
+                <Link to='/' className='logo'>
+                    <Logo size={40} />
+                    My travels
                 </Link>
 
                 <div className='toolbar-middle'>
