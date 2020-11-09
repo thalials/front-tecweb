@@ -1,27 +1,27 @@
 import React, { useEffect, useState, useLayoutEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
-import Card from '@material-ui/core/Card';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import { CardHeader } from '@material-ui/core';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
-import { Favorite, FavoriteBorderOutlined } from '@material-ui/icons';
-import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { makeStyles } from "@material-ui/core/styles";
+import clsx from "clsx";
+import Card from "@material-ui/core/Card";
+import CardMedia from "@material-ui/core/CardMedia";
+import CardContent from "@material-ui/core/CardContent";
+import { CardHeader } from "@material-ui/core";
+import CardActions from "@material-ui/core/CardActions";
+import Collapse from "@material-ui/core/Collapse";
+import Avatar from "@material-ui/core/Avatar";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import { red } from "@material-ui/core/colors";
+import { Favorite, FavoriteBorderOutlined } from "@material-ui/icons";
+import ShareIcon from "@material-ui/icons/Share";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
 
-import { createQRCodeURI, toggleLike, getCityInfo } from '../../API/Requests';
-import { getCityId } from '../../Helpers';
-import './styles.css';
-import Header from '../../Components/Header';
-import LoadingIndicator from '../../Components/LoadingIndicator/LoadingIndicator';
+import { createQRCodeURI, toggleLike, getCityInfo } from "../../API/Requests";
+import { getCityId } from "../../Helpers";
+import "./styles.css";
+import Header from "../../Components/Header";
+import LoadingIndicator from "../../Components/LoadingIndicator/LoadingIndicator";
 
 function SearchResult(props) {
     const _id = props.match.params.city_id;
@@ -114,39 +114,34 @@ function ResultCard(props) {
         });
     }, [id]);
 
-    return (
-        <>
-            {error ? (
-                <EmptyFeedback />
-            ) : loading ? (
-                <LoadingIndicator width={30} />
-            ) : (
-                <div
-                    className='search-result-outer'
-                    style={{
-                        background: `url(https://source.unsplash.com/3200x1800/?landscape,${splittedCityName.join(
-                            '+'
-                        )})`,
-                        backgroundSize: 'cover'
-                    }}>
-                    <div className='search-result-card'>
-                        <Card className='result-card-outer'>
-                            <CardHeader
-                                avatar={
-                                    <Avatar
-                                        aria-label='recipe'
-                                        className={classes.avatar}>
-                                        {acronym}
-                                    </Avatar>
-                                }
-                                action={
-                                    <IconButton aria-label='settings'>
-                                        <MoreVertIcon />
-                                    </IconButton>
-                                }
-                                title={city.name}
-                                subheader={curTime}
-                            />
+  return (
+    <>
+      {error ? (
+        <EmptyFeedback />
+      ) : loading ? (
+        <LoadingIndicator width={30} />
+      ) : (
+        <div
+          className="search-result-outer"
+          style={{
+            background: `url(https://source.unsplash.com/3200x1800/?landscape,${splittedCityName.join(
+              "+"
+            )})`,
+            backgroundSize: "cover",
+          }}
+        >
+          <div className="search-result-card">
+            <Card className="result-card-outer">
+              <CardHeader
+                avatar={
+                  <Avatar aria-label="recipe" className={classes.avatar}>
+                    {acronym}
+                  </Avatar>
+                }
+                
+                title={city.name}
+                subheader={curTime}
+              />
 
                             <CardMedia className='city-map'>
                                 <iframe

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Travels from '../../views/Homepage/Travels';
+import Converter from '../../views/Homepage/Converter';
+
 
 import './styles.css';
 
@@ -21,23 +23,23 @@ function HorizontalTabs() {
                     selected={index}
                 />
                 <Tab
-                    title='Tab 2'
+                    title='Conversor de moedas'
                     index={2}
                     callback={setIndex}
                     selected={index}
                 />
-                <Tab
+                {/* <Tab
                     title='Tab 3'
                     index={3}
                     callback={setIndex}
                     selected={index}
-                />
+                /> */}
             </div>
 
             <div className='main-content'>
                 {index === 1 && <Travels />}
-                {index === 2 && <span>esta é a tab 2</span>}
-                {index === 3 && <span>esta é a tab 3</span>}
+                {index === 2 && <div className="converter-outer-container "> <Converter moedaA="USD" moedaB="BRL" /> <Converter moedaA="BRL" moedaB="USD"/> </div> }
+                {/* {index === 3 && <span>esta é a tab 3</span>} */}
             </div>
         </div>
     );

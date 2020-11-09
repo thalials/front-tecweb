@@ -125,11 +125,7 @@ function DisplayPlace({ place }) {
                             {acronym}
                         </Avatar>
                     }
-                    action={
-                        <IconButton aria-label='settings'>
-                            <MoreVertIcon />
-                        </IconButton>
-                    }
+                    
                     title={name}
                     subheader={time}
                 />
