@@ -78,8 +78,10 @@ function DisplayPlace({ place }) {
     const [expanded, setExpanded] = useState(false);
     const [notes, setNotes] = useState(annotations);
     const emptyNotes = useRef(0);
+    const splittedCityName = city?.name?.split(/\s/);
 
     const qrCodeURI = createQRCodeURI(window.location.href + '/' + city._id);
+    const time = new Date().toLocaleString();
 
     // console.log(country.currency);
     const classes = useStyles();
@@ -120,12 +122,14 @@ function DisplayPlace({ place }) {
                         </IconButton>
                     }
                     title={name}
-                    subheader={createdAt}
+                    subheader={time}
                 />
 
                 <CardMedia className='city-map'>
                     <iframe
-                        src={`https://maps.google.com/maps?q=${lat}, ${lng}&z=12&output=embed`}
+                        src={`https://source.unsplash.com/800x300/?landscape,${splittedCityName.join(
+                            "+"
+                          )}`}
                         width='100%'
                         height='300px'
                         frameBorder='0'></iframe>
@@ -199,7 +203,7 @@ function DisplayPlace({ place }) {
                             <span className='label'>Telefone (DDI): </span>+
                             {country.phone}
                         </Typography>
-
+                        <Typography>
                         {!!country.currency.length && (
                             <div className='country-currency'>
                                 <span className='label'>
@@ -217,7 +221,9 @@ function DisplayPlace({ place }) {
                                 </ul>
                             </div>
                         )}
-
+                        </Typography>
+                        
+                        <Typography>
                         <div className='country-languages'>
                             <span className='label'>
                                 Linguagem(ns) utilizada(s) nesse país:
@@ -230,6 +236,7 @@ function DisplayPlace({ place }) {
                                 ))}
                             </ul>
                         </div>
+                        </Typography>
 
                         {notes.map((note) => (
                             <Note

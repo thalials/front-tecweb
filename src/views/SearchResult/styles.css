@@ -50,3 +50,7 @@
     background-color: white;
     box-shadow: 0px 1px 20px #ccc;
 }
+
+.label {
+    font-weight: bold;
+}

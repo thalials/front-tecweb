@@ -15,7 +15,7 @@ function HorizontalTabs() {
         <div>
             <div className='horizontal-tabs'>
                 <Tab
-                    title='Minhas Viagens'
+                    title='Cidades curtidas'
                     index={1}
                     callback={setIndex}
                     selected={index}
