@@ -126,13 +126,11 @@ function DisplayPlace({ place }) {
                 />
 
                 <CardMedia className='city-map'>
-                    <iframe
+                    <img
                         src={`https://source.unsplash.com/800x300/?landscape,${splittedCityName.join(
                             "+"
-                          )}`}
-                        width='100%'
-                        height='300px'
-                        frameBorder='0'></iframe>
+                          )}`}/>
+
                 </CardMedia>
 
                 <CardContent>
