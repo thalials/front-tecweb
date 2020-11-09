@@ -10,15 +10,15 @@ function Note({ data, removeFromList, fixLastAdded, writable }) {
     const [noteTitle, setNoteTitle] = useState(title || '');
     const [noteDescription, setNoteDescription] = useState(description || '');
     const [readOnly, setReadOnly] = useState(!writable);
-    const creation = useRef();
-    
-    useEffect(()=>{
-        if (createdAt.length) {
-            creation.current = new Date(createdAt).toLocaleString()
+    const [creation, setCreation] = useState();
+
+    useEffect(() => {
+        if (createdAt) {
+            setCreation(new Date(createdAt).toLocaleString());
         } else {
-            creation.current = new Date().toLocaleString()
+            setCreation(new Date().toLocaleString());
         }
-    },[])
+    }, []);
 
     function handleDelete() {
         //
@@ -60,7 +60,7 @@ function Note({ data, removeFromList, fixLastAdded, writable }) {
     return (
         <div className='note-outer'>
             <div className='note-header'>
-                <span className='created-at'>Você, em {creation.current}</span>
+                <span className='created-at'>Você, em {creation}</span>
                 <div className='button-group'>
                     {readOnly ? (
                         <button
