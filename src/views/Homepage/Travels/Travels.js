@@ -2,6 +2,8 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { listUserPlaces, createQRCodeURI } from '../../../API/Requests';
 import LoadingIndicator from '../../../Components/LoadingIndicator';
+import Note from '../../../Components/Note';
+
 
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -70,14 +72,15 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 function DisplayPlace({ place }) {
-    const { city, anotations, createdAt } = place;
+    const { city, annotations, createdAt } = place;
     const { name, lat, lng, country } = city;
     const [likedByMe, setLikedByMe] = useState(true);
     const [likes, setLikes] = useState(city.likes);
     const [expanded, setExpanded] = useState(false);
 
-    const qrCodeURI = createQRCodeURI(window.location.href);
+    const qrCodeURI = createQRCodeURI(window.location.href + '/' + city._id);
 
+    // console.log(country.currency);
     const classes = useStyles();
     const acronym = city?.name
         ?.split(/\s/)
@@ -157,11 +160,13 @@ function DisplayPlace({ place }) {
                 <Collapse in={expanded} timeout='auto' unmountOnExit>
                     <CardContent>
                         <Typography paragraph className='country-continent'>
-                            Continent: {country.continent.name}
+                            <span className='label'>Continente: </span>
+                            {country.continent.name}
                         </Typography>
 
                         <Typography paragraph className='country-name'>
-                            Country: {country.name} ({country.native})
+                            <span className='label'>País: </span>
+                            {country.name} ({country.native})
                         </Typography>
 
                         <Typography paragraph className='country-capital'>
@@ -172,7 +177,8 @@ function DisplayPlace({ place }) {
                         </Typography>
 
                         <Typography paragraph className='country-phone'>
-                            Phone: +{country.phone}
+                            <span className='label'>Telefone (DDI): </span>+
+                            {country.phone}
                         </Typography>
 
                         {!!country.currency.length && (
@@ -205,6 +211,11 @@ function DisplayPlace({ place }) {
                                 ))}
                             </ul>
                         </div>
+
+                        {annotations.map((note) => (
+                            <Note key={note._id} data={note} />
+                        ))}
+
                         <div className='print-share'>
                             <img
                                 src={qrCodeURI}

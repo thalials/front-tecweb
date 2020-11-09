@@ -14,7 +14,6 @@ export async function getCityInfo(cityId) {
     await saveToken(token);
     const currency = await getCurrencyInfo(city.country.currency);
     city.country.currency = currency;
-    console.log(currency);
 
     return city;
 }
@@ -22,7 +21,14 @@ export async function getCityInfo(cityId) {
 export async function listUserPlaces() {
     const { data } = await api.get('/places/likes');
     const { places, token } = await data;
-    await saveToken(token);
+    await saveToken(token); 
+    places.forEach(async (place, index) => {
+        const currencyArray = place.city.country.currency;
+        places[index].city.country.currency = await getCurrencyInfo(
+            currencyArray
+        );
+    });
+
     return places;
 }
 
@@ -34,7 +40,7 @@ export async function getCurrencyInfo(currencyArray) {
             )}`
         )
         .then(({ data }) => {
-            console.log(data);
+            // console.log(data);
             const currencies = Object.entries(data.rates);
             return currencies.map(([cur, value]) => {
                 return {
@@ -45,6 +51,7 @@ export async function getCurrencyInfo(currencyArray) {
         })
         .catch((error) => {
             console.log(error);
+            return [];
         });
 }
 export async function saveToken(token) {
