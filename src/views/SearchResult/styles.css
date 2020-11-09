@@ -1,8 +1,6 @@
 .search-result-outer {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    /* height: 100%; */
+    justify-content: center; 
 }
 
 .search-result-card {
@@ -28,11 +26,16 @@
     height: 90vh;
     justify-content: center;
     display: block;
-    margin: 25px 0 0 0;
+    margin: 0 0 0 0;
 }
-
-.currency-item {
-    margin: 0.25rem;
+.result-card-outer * {
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+.result-card-outer ul {
+    margin: 0.5rem 0;
+}
+.result-card-outer ul li {
+    margin: 0.5rem
 }
 
 .print-share {
@@ -46,8 +49,4 @@
     padding: 0.5rem;
     background-color: white;
     box-shadow: 0px 1px 20px #ccc;
-}
-
-.favorite::after {
-    color: red;
 }
