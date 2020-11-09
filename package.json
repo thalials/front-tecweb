@@ -1,4 +1,8 @@
 {
+  "engines": {
+    "node": "^14.4.0"
+  },
+  
   "name": "front-tecweb",
   "version": "0.1.0",
   "private": true,
