@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Travels from '../../views/Homepage/Travels';
 import Converter from '../../views/Homepage/Converter';
 
-
 import './styles.css';
 
 function HorizontalTabs() {
@@ -38,7 +37,13 @@ function HorizontalTabs() {
 
             <div className='main-content'>
                 {index === 1 && <Travels />}
-                {index === 2 && <div className="converter-outer-container "> <Converter moedaA="USD" moedaB="BRL" /> <Converter moedaA="BRL" moedaB="USD"/> </div> }
+                {index === 2 && (
+                    <div className='converter-outer-container '>
+                        {' '}
+                        <Converter moedaA='USD' moedaB='BRL' />{' '}
+                        <Converter moedaA='BRL' moedaB='USD' />{' '}
+                    </div>
+                )}
                 {/* {index === 3 && <span>esta é a tab 3</span>} */}
             </div>
         </div>
@@ -57,10 +62,12 @@ function Tab(props) {
             style={{
                 borderBottom: selected === index ? '3px solid #cc2200' : null
             }}>
-            <i className='fas fa-heart tab-text'></i>
+            <i className={`${iconArray[index - 1]} tab-text`}></i>
             <span className='tab-text'>{title}</span>
         </button>
     );
 }
+
+const iconArray = ['fas fa-heart', 'fas fa-coins'];
 
 export default HorizontalTabs;
