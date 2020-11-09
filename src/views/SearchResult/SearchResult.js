@@ -138,11 +138,7 @@ function ResultCard(props) {
                     {acronym}
                   </Avatar>
                 }
-                action={
-                  <IconButton aria-label="settings">
-                    <MoreVertIcon />
-                  </IconButton>
-                }
+                
                 title={city.name}
                 subheader={curTime}
               />
