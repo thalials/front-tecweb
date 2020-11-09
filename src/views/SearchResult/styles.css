@@ -9,8 +9,7 @@
     box-sizing: border-box;
     width: 80vw;
     max-width: 800px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
-        sans-serif;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 .result-card-outer {
     display: grid;
@@ -50,4 +49,8 @@
     padding: 0.5rem;
     background-color: white;
     box-shadow: 0px 1px 20px #ccc;
+}
+
+.label {
+    font-weight: bold;
 }
