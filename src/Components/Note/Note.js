@@ -1,15 +1,24 @@
-import React, { useRef, useState, memo } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 
 import { createNote, updateNote, deleteNote } from '../../API/Requests';
 
 import './styles.css';
 
-function Note({ data, removeFromList }) {
-    const { title, description, _id, owner, place } = data;
+function Note({ data, removeFromList, fixLastAdded, writable }) {
+    const { title, description, _id, owner, place, createdAt } = data;
     const noteId = useRef(_id);
     const [noteTitle, setNoteTitle] = useState(title || '');
     const [noteDescription, setNoteDescription] = useState(description || '');
-    const [readOnly, setReadOnly] = useState(true);
+    const [readOnly, setReadOnly] = useState(!writable);
+    const [creation, setCreation] = useState();
+
+    useEffect(() => {
+        if (createdAt) {
+            setCreation(new Date(createdAt).toLocaleString());
+        } else {
+            setCreation(new Date().toLocaleString());
+        }
+    }, []);
 
     function handleDelete() {
         //
@@ -19,7 +28,6 @@ function Note({ data, removeFromList }) {
         } else {
             // delete from db
             deleteNote(noteId.current).then((res) => {
-                console.log(res);
                 removeFromList(noteId.current);
             });
         }
@@ -29,22 +37,21 @@ function Note({ data, removeFromList }) {
     function handleSubmit() {
         //
         if (noteTitle !== title || noteDescription !== description) {
-            console.log({ noteDescription, noteTitle });
             if (!noteId.current) {
                 // create
                 createNote(place, noteTitle, noteDescription).then(
                     (note_id) => {
-                        console.log('create', note_id);
                         noteId.current = note_id;
+                        fixLastAdded(note_id);
                     }
                 );
             } else {
                 // update
-                updateNote(place, noteTitle, noteDescription).then(
-                    (note_id) => {
-                        console.log('update', note_id);
-                    }
-                );
+                updateNote(
+                    place,
+                    noteTitle,
+                    noteDescription
+                ).then((note_id) => {});
             }
         }
         setReadOnly(true);
@@ -52,26 +59,37 @@ function Note({ data, removeFromList }) {
 
     return (
         <div className='note-outer'>
-            <div className='button-group'>
-                {readOnly ? (
-                    <button
-                        onClick={() => {
-                            setReadOnly(false);
-                        }}>
-                        <i className='fas fa-pen'></i>
-                    </button>
-                ) : (
-                    <>
-                        <button className='green' onClick={handleSubmit}>
-                            <i
-                                className='far fa-save'
-                                title='Salvar modificações'></i>
+            <div className='note-header'>
+                <span className='created-at'>Você, em {creation}</span>
+                <div className='button-group'>
+                    {readOnly ? (
+                        <button
+                            title='Editar nota'
+                            onClick={() => {
+                                setReadOnly(false);
+                            }}>
+                            <i className='fas fa-pen'></i>
+                            Editar
                         </button>
-                    </>
-                )}
-                <button className='red' onClick={handleDelete}>
-                    <i className='far fa-trash-alt' title='Apagar nota'></i>
-                </button>
+                    ) : (
+                        <>
+                            <button
+                                className='green'
+                                title='Salvar modificações'
+                                onClick={handleSubmit}>
+                                <i className='far fa-save'></i>
+                                Salvar modificações
+                            </button>
+                        </>
+                    )}
+                    <button
+                        className='red'
+                        title='Apagar nota'
+                        onClick={handleDelete}>
+                        <i className='far fa-trash-alt'></i>
+                        Apagar nota
+                    </button>
+                </div>
             </div>
             <div className='note-inner'>
                 <input
@@ -108,12 +126,14 @@ function Note({ data, removeFromList }) {
 
 function Countdown(props) {
     const { limit, current } = props;
+    const color = `rgb(${Math.floor((255 * current) / limit)}, ${Math.floor(
+        (255 * (limit - current)) / limit
+    )}, 0 )`;
+
     return (
         <span
             style={{
-                color: `rgb(${Math.floor(
-                    (255 * current) / limit
-                )}, ${Math.floor((255 * (limit - current)) / limit)}, 0 )`
+                color: color
             }}>
             {limit - current}
         </span>

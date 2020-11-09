@@ -11,8 +11,7 @@ import SearchResult from './views/SearchResult/SearchResult';
 
 function CustomRoute({ isPrivate, ...rest }) {
     const { authenticated, loading, handleLogout } = useContext(Context);
-    console.log(authenticated);
-
+   
     if (loading) {
         return <LoadingPage />;
     }

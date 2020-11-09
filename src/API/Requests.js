@@ -70,7 +70,6 @@ export async function getCurrencyInfo(currencyArray) {
             )}`
         )
         .then(({ data }) => {
-            // console.log(data);
             const currencies = Object.entries(data.rates);
             return currencies.map(([cur, value]) => {
                 return {
@@ -80,7 +79,6 @@ export async function getCurrencyInfo(currencyArray) {
             });
         })
         .catch((error) => {
-            console.log(error);
             return [];
         });
 }
