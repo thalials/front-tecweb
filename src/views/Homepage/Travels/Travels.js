@@ -101,8 +101,16 @@ function DisplayPlace({ place }) {
             emptyNotes.current += 1;
             console.log(place._id);
             console.log(emptyNotes.current);
-            setNotes(notes.concat([{ place: place._id }]));
+            setNotes(notes.concat([{ place: place._id, writable: true }]));
         }
+    }
+
+    function fixLastAdded(_id) {
+        setNotes((prev) => {
+            prev.slice(-1)._id = _id;
+            return prev;
+        });
+        emptyNotes.current = 0;
     }
 
     return (
@@ -236,6 +244,8 @@ function DisplayPlace({ place }) {
                                 key={note._id || 'EmptyNote'}
                                 data={note}
                                 removeFromList={removeFromList}
+                                fixLastAdded={fixLastAdded}
+                                writable={note.writable || false}
                             />
                         ))}
 

@@ -4,12 +4,12 @@ import { createNote, updateNote, deleteNote } from '../../API/Requests';
 
 import './styles.css';
 
-function Note({ data, removeFromList }) {
+function Note({ data, removeFromList, fixLastAdded, writable }) {
     const { title, description, _id, owner, place } = data;
     const noteId = useRef(_id);
     const [noteTitle, setNoteTitle] = useState(title || '');
     const [noteDescription, setNoteDescription] = useState(description || '');
-    const [readOnly, setReadOnly] = useState(true);
+    const [readOnly, setReadOnly] = useState(!writable);
 
     function handleDelete() {
         //
@@ -36,6 +36,7 @@ function Note({ data, removeFromList }) {
                     (note_id) => {
                         console.log('create', note_id);
                         noteId.current = note_id;
+                        fixLastAdded(note_id);
                     }
                 );
             } else {
@@ -55,6 +56,7 @@ function Note({ data, removeFromList }) {
             <div className='button-group'>
                 {readOnly ? (
                     <button
+                    title='Editar nota'
                         onClick={() => {
                             setReadOnly(false);
                         }}>
@@ -62,15 +64,19 @@ function Note({ data, removeFromList }) {
                     </button>
                 ) : (
                     <>
-                        <button className='green' onClick={handleSubmit}>
-                            <i
-                                className='far fa-save'
-                                title='Salvar modificações'></i>
+                        <button
+                            className='green'
+                            title='Salvar modificações'
+                            onClick={handleSubmit}>
+                            <i className='far fa-save'></i>
                         </button>
                     </>
                 )}
-                <button className='red' onClick={handleDelete}>
-                    <i className='far fa-trash-alt' title='Apagar nota'></i>
+                <button
+                    className='red'
+                    title='Apagar nota'
+                    onClick={handleDelete}>
+                    <i className='far fa-trash-alt'></i>
                 </button>
             </div>
             <div className='note-inner'>
@@ -108,12 +114,14 @@ function Note({ data, removeFromList }) {
 
 function Countdown(props) {
     const { limit, current } = props;
+    const color = `rgb(${Math.floor((255 * current) / limit)}, ${Math.floor(
+        (255 * (limit - current)) / limit
+    )}, 0 )`;
+
     return (
         <span
             style={{
-                color: `rgb(${Math.floor(
-                    (255 * current) / limit
-                )}, ${Math.floor((255 * (limit - current)) / limit)}, 0 )`
+                color: color
             }}>
             {limit - current}
         </span>
