@@ -23,8 +23,6 @@ import "./styles.css";
 import Header from "../../Components/Header";
 import LoadingIndicator from "../../Components/LoadingIndicator/LoadingIndicator";
 
-
-
 function SearchResult(props) {
   const _id = props.match.params.city_id;
 
