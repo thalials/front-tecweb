@@ -4,7 +4,6 @@ import { listUserPlaces, createQRCodeURI } from '../../../API/Requests';
 import LoadingIndicator from '../../../Components/LoadingIndicator';
 import Note from '../../../Components/Note';
 
-
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import { CardHeader } from '@material-ui/core';
@@ -77,6 +76,8 @@ function DisplayPlace({ place }) {
     const [likedByMe, setLikedByMe] = useState(true);
     const [likes, setLikes] = useState(city.likes);
     const [expanded, setExpanded] = useState(false);
+    const [notes, setNotes] = useState(annotations);
+    const emptyNotes = useRef(0);
 
     const qrCodeURI = createQRCodeURI(window.location.href + '/' + city._id);
 
@@ -85,6 +86,24 @@ function DisplayPlace({ place }) {
     const acronym = city?.name
         ?.split(/\s/)
         ?.reduce((response, word) => (response += word.slice(0, 1)), '');
+
+    function removeFromList(_id) {
+        if (!_id) {
+            setNotes((prev) => prev.slice(0, prev.length - 1));
+            emptyNotes.current -= 1;
+        } else {
+            setNotes((prev) => prev.filter((note) => note._id !== _id));
+        }
+    }
+
+    function addNote() {
+        if (emptyNotes.current == 0) {
+            emptyNotes.current += 1;
+            console.log(place._id);
+            console.log(emptyNotes.current);
+            setNotes(notes.concat([{ place: place._id }]));
+        }
+    }
 
     return (
         <div className='places-card'>
@@ -212,9 +231,15 @@ function DisplayPlace({ place }) {
                             </ul>
                         </div>
 
-                        {annotations.map((note) => (
-                            <Note key={note._id} data={note} />
+                        {notes.map((note) => (
+                            <Note
+                                key={note._id || 'EmptyNote'}
+                                data={note}
+                                removeFromList={removeFromList}
+                            />
                         ))}
+
+                        <button onClick={addNote}>Adicionar uma nota</button>
 
                         <div className='print-share'>
                             <img

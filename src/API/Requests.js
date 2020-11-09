@@ -21,7 +21,7 @@ export async function getCityInfo(cityId) {
 export async function listUserPlaces() {
     const { data } = await api.get('/places/likes');
     const { places, token } = await data;
-    await saveToken(token); 
+    await saveToken(token);
     places.forEach(async (place, index) => {
         const currencyArray = place.city.country.currency;
         places[index].city.country.currency = await getCurrencyInfo(
@@ -30,6 +30,36 @@ export async function listUserPlaces() {
     });
 
     return places;
+}
+
+export async function createNote(place, title, description) {
+    const { data } = await api.post(`/places/notes/${place}`, {
+        title,
+        description
+    });
+
+    const { noteId, token } = await data;
+    await saveToken(token);
+
+    return noteId;
+}
+
+export async function updateNote(note, title, description) {
+    const { data } = await api.put(`/places/notes/${note}`, {
+        title,
+        description
+    });
+
+    const { noteId, token } = await data;
+    await saveToken(token);
+    return noteId;
+}
+
+export async function deleteNote(note) {
+    const { data } = await api.delete(`/places/notes/${note}`);
+    const { noteId, token } = await data;
+    await saveToken(token);
+    return noteId;
 }
 
 export async function getCurrencyInfo(currencyArray) {
