@@ -126,8 +126,8 @@ function Note({ data, removeFromList, fixLastAdded, writable }) {
 
 function Countdown(props) {
     const { limit, current } = props;
-    const color = `rgb(${Math.floor((255 * current) / limit)}, ${Math.floor(
-        (255 * (limit - current)) / limit
+    const color = `rgb(${Math.floor((150 * current) / limit)}, ${Math.floor(
+        (150 * (limit - current)) / limit
     )}, 0 )`;
 
     return (

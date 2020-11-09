@@ -13,9 +13,18 @@
     justify-content: space-between;
 }
 
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-decoration: none;
+    color: white;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+}
+
 .username {
     font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
-    font-weight: 600
+    font-weight: 600;
 }
 
 .right-items {
@@ -39,7 +48,7 @@
 }
 
 .user-initials {
-    margin-left: 10px; 
+    margin-left: 10px;
 }
 
 .my-places {
