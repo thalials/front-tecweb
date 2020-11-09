@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useLayoutEffect } from "react";
+import React, { useEffect, useState, useLayoutEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
@@ -24,95 +24,95 @@ import Header from "../../Components/Header";
 import LoadingIndicator from "../../Components/LoadingIndicator/LoadingIndicator";
 
 function SearchResult(props) {
-  const _id = props.match.params.city_id;
+    const _id = props.match.params.city_id;
 
-  return (
-    <div>
-      <Header />
-      <section className="search-result-main">
-        <ResultCard id={_id} />
-      </section>
-    </div>
-  );
+    return (
+        <div>
+            <Header />
+            <section className='search-result-main'>
+                <ResultCard id={_id} />
+            </section>
+        </div>
+    );
 }
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    maxWidth: 345,
-  },
-  media: {
-    height: 0,
-    paddingTop: "56.25%", // 16:9
-  },
-  expand: {
-    transform: "rotate(0deg)",
-    marginLeft: "auto",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: "rotate(180deg)",
-  },
-  avatar: {
-    backgroundColor: red[500],
-  },
+    root: {
+        maxWidth: 345
+    },
+    media: {
+        height: 0,
+        paddingTop: '56.25%' // 16:9
+    },
+    expand: {
+        transform: 'rotate(0deg)',
+        marginLeft: 'auto',
+        transition: theme.transitions.create('transform', {
+            duration: theme.transitions.duration.shortest
+        })
+    },
+    expandOpen: {
+        transform: 'rotate(180deg)'
+    },
+    avatar: {
+        backgroundColor: red[500]
+    }
 }));
 
 function ResultCard(props) {
-  const { id } = props;
-  const [city, setCity] = useState({});
-  const [country, setCountry] = useState({});
-  const [expanded, setExpanded] = useState(true);
-  const [loading, setLoading] = useState(true);
-  const [likedByMe, setLikedByMe] = useState(false);
-  const [likes, setLikes] = useState(0);
-  const [error, setError] = useState(false);
+    const { id } = props;
+    const [city, setCity] = useState({});
+    const [country, setCountry] = useState({});
+    const [expanded, setExpanded] = useState(true);
+    const [loading, setLoading] = useState(true);
+    const [likedByMe, setLikedByMe] = useState(false);
+    const [likes, setLikes] = useState(0);
+    const [error, setError] = useState(false);
 
-  const qrCodeURI = createQRCodeURI(window.location.href);
+    const qrCodeURI = createQRCodeURI(window.location.href);
 
-  const splittedCityName = city?.name?.split(/\s/);
-  const acronym = splittedCityName?.reduce(
-    (response, word) => (response += word.slice(0, 1)),
-    ""
-  );
+    const splittedCityName = city?.name?.split(/\s/);
+    const acronym = splittedCityName?.reduce(
+        (response, word) => (response += word.slice(0, 1)),
+        ''
+    );
 
-  const classes = useStyles();
+    const classes = useStyles();
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    };
 
-  async function handleLike() {
-    toggleLike(id).then((placeIsLiked) => {
-      setLikedByMe(placeIsLiked);
-      if (placeIsLiked) {
-        setLikes((prev) => prev + 1);
-      } else {
-        setLikes((prev) => prev - 1);
-      }
-    });
-  }
-
-  const curTime = new Date().toLocaleString();
-
-  useLayoutEffect(() => {
-    setLoading(true);
-    (async () => {
-      await getCityInfo(id)
-        .then((city) => {
-          setCountry(city.country);
-          setCity(city);
-          setLikes(city.likes);
-          setLikedByMe(city.likedByMe);
-        })
-        .catch(() => {
-          setError(true);
+    async function handleLike() {
+        toggleLike(id).then((placeIsLiked) => {
+            setLikedByMe(placeIsLiked);
+            if (placeIsLiked) {
+                setLikes((prev) => prev + 1);
+            } else {
+                setLikes((prev) => prev - 1);
+            }
         });
-    })().then(() => {
-      setLoading(false);
-    });
-  }, [id]);
+    }
+
+    const curTime = new Date().toLocaleString();
+
+    useLayoutEffect(() => {
+        setLoading(true);
+        (async () => {
+            await getCityInfo(id)
+                .then((city) => {
+                    setCountry(city.country);
+                    setCity(city);
+                    setLikes(city.likes);
+                    setLikedByMe(city.likedByMe);
+                })
+                .catch(() => {
+                    setError(true);
+                });
+        })().then(() => {
+            setLoading(false);
+        });
+    }, [id]);
 
   return (
     <>
@@ -143,134 +143,161 @@ function ResultCard(props) {
                 subheader={curTime}
               />
 
-              <CardMedia className="city-map">
-                <iframe
-                  src={`https://maps.google.com/maps?q=${city.lat}, ${city.lng}&z=12&output=embed`}
-                  width="100%"
-                  height="300px"
-                  frameBorder="0"
-                ></iframe>
-              </CardMedia>
+                            <CardMedia className='city-map'>
+                                <iframe
+                                    src={`https://maps.google.com/maps?q=${city.lat}, ${city.lng}&z=12&output=embed`}
+                                    width='100%'
+                                    height='300px'
+                                    frameBorder='0'></iframe>
+                            </CardMedia>
 
-              <CardContent>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  Clique para ver mais detalhes desse lugar =)
-                </Typography>
-              </CardContent>
+                            <CardContent>
+                                <Typography
+                                    variant='body2'
+                                    color='textSecondary'
+                                    component='p'>
+                                    Clique para ver mais detalhes desse lugar =)
+                                </Typography>
+                            </CardContent>
 
-              <CardActions disableSpacing>
-                <div className="likes">
-                  <IconButton
-                    className="favorite"
-                    aria-label="add to favorites"
-                    onClick={handleLike}
-                    color="secondary"
-                  >
-                    {likedByMe ? <Favorite /> : <FavoriteBorderOutlined />}
-                  </IconButton>
-                  {likes === 0
-                    ? "Ninguém curtiu essa cidade ainda"
-                    : likes === 1 && !likedByMe
-                    ? "Uma pessoa curtiu essa cidade"
-                    : likes === 1 && likedByMe
-                    ? "Apenas você curtiu essa cidade"
-                    : `${likes} pessoas curtiram essa cidade`}
-                </div>
+                            <CardActions disableSpacing>
+                                <div className='likes'>
+                                    <IconButton
+                                        className='favorite'
+                                        aria-label='add to favorites'
+                                        onClick={handleLike}
+                                        color='secondary'>
+                                        {likedByMe ? (
+                                            <Favorite />
+                                        ) : (
+                                            <FavoriteBorderOutlined />
+                                        )}
+                                    </IconButton>
+                                    {likes === 0
+                                        ? 'Ninguém curtiu essa cidade ainda'
+                                        : likes === 1 && !likedByMe
+                                        ? 'Uma pessoa curtiu essa cidade'
+                                        : likes === 1 && likedByMe
+                                        ? 'Apenas você curtiu essa cidade'
+                                        : `${likes} pessoas curtiram essa cidade`}
+                                </div>
 
-                <IconButton
-                  className={clsx(classes.expand, {
-                    [classes.expandOpen]: expanded,
-                  })}
-                  onClick={handleExpandClick}
-                  aria-expanded={expanded}
-                  aria-label="show more"
-                >
-                  <ExpandMoreIcon />
-                </IconButton>
-              </CardActions>
-              <Collapse in={expanded} timeout="auto" unmountOnExit>
-                <CardContent>
-                  <Typography paragraph className="country-continent">
-                    <span className="label">Continente: </span>
-                    Continent: {country.continent.name}
-                  </Typography>
+                                <IconButton
+                                    className={clsx(classes.expand, {
+                                        [classes.expandOpen]: expanded
+                                    })}
+                                    onClick={handleExpandClick}
+                                    aria-expanded={expanded}
+                                    aria-label='show more'>
+                                    <ExpandMoreIcon />
+                                </IconButton>
+                            </CardActions>
+                            <Collapse
+                                in={expanded}
+                                timeout='auto'
+                                unmountOnExit>
+                                <CardContent>
+                                    <Typography
+                                        paragraph
+                                        className='country-continent'>
+                                        <span className='label'>
+                                            Continente:{' '}
+                                        </span>
+                                        Continent: {country.continent.name}
+                                    </Typography>
 
-                  <Typography paragraph className="country-name">
-                    <span className="label">País: </span>
-                    Country: {country.name} ({country.native})
-                  </Typography>
+                                    <Typography
+                                        paragraph
+                                        className='country-name'>
+                                        <span className='label'>País: </span>
+                                        Country: {country.name} (
+                                        {country.native})
+                                    </Typography>
 
-                  <Typography paragraph className="country-capital">
-                    <span className="label">Capital: </span>
-                    <Link to={getCityId(country.capital)}>
-                      {country.capital}
-                    </Link>
-                  </Typography>
+                                    <Typography
+                                        paragraph
+                                        className='country-capital'>
+                                        <span className='label'>Capital: </span>
+                                        <Link to={getCityId(country.capital)}>
+                                            {country.capital}
+                                        </Link>
+                                    </Typography>
 
-                  <Typography paragraph className="country-phone">
-                    <span className="label">Telefone (DDI): </span>+
-                    {country.phone}
-                  </Typography>
+                                    <Typography
+                                        paragraph
+                                        className='country-phone'>
+                                        <span className='label'>
+                                            Telefone (DDI):{' '}
+                                        </span>
+                                        +{country.phone}
+                                    </Typography>
 
-                  <Typography>
-                    {!!country?.currency?.length && (
-                      <div className="country-currency">
-                        <span className="label">
-                          Moeda(s) utilizada(s) nesse país:
-                        </span>
-                        <ul className="currency-list">
-                          {country.currency.map((cur, index) => (
-                            <li key={index} className="currency-item">
-                              1 {cur.unit} equivale a USD {cur.price}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                  </Typography>
+                                    {!!country?.currency?.length && (
+                                        <div className='country-currency'>
+                                            <span className='label'>
+                                                Moeda(s) utilizada(s) nesse
+                                                país:
+                                            </span>
+                                            <ul className='currency-list'>
+                                                {country.currency.map(
+                                                    (cur, index) => (
+                                                        <li
+                                                            key={index}
+                                                            className='currency-item'>
+                                                            {`1 USD equivale a ${cur.price} ${cur.unit}`}
+                                                        </li>
+                                                    )
+                                                )}
+                                            </ul>
+                                        </div>
+                                    )}
 
-                  <Typography>
-                    <div className="country-languages">
-                      <span className="label">
-                        Linguagem(ns) utilizada(s) nesse país:
-                      </span>
-                      <ul className="language-list">
-                        {country.languages.map((item, index) => (
-                          <li key={index} className="language-item">
-                            {item.name}
-                          </li>
-                        ))}
-                      </ul>
+                                    <Typography>
+                                        <div className='country-languages'>
+                                            <span className='label'>
+                                                Linguagem(ns) utilizada(s) nesse
+                                                país:
+                                            </span>
+                                            <ul className='language-list'>
+                                                {country.languages.map(
+                                                    (item, index) => (
+                                                        <li
+                                                            key={index}
+                                                            className='language-item'>
+                                                            {item.name}
+                                                        </li>
+                                                    )
+                                                )}
+                                            </ul>
+                                        </div>
+                                    </Typography>
+
+                                    <div className='print-share'>
+                                        <img
+                                            src={qrCodeURI}
+                                            className='share-qrcode'
+                                            width='150'
+                                            height='150'
+                                        />
+                                        <IconButton
+                                            aria-label='share'
+                                            onClick={() => window.print()}>
+                                            <ShareIcon />
+                                        </IconButton>
+                                        Compartilhe com seus amigos e amigas!
+                                    </div>
+                                </CardContent>
+                            </Collapse>
+                        </Card>{' '}
                     </div>
-                  </Typography>
-
-                  <div className="print-share">
-                    <img
-                      src={qrCodeURI}
-                      className="share-qrcode"
-                      width="150"
-                      height="150"
-                    />
-                    <IconButton
-                      aria-label="share"
-                      onClick={() => window.print()}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    Compartilhe com seus amigos e amigas!
-                  </div>
-                </CardContent>
-              </Collapse>
-            </Card>{" "}
-          </div>
-        </div>
-      )}
-    </>
-  );
+                </div>
+            )}
+        </>
+    );
 }
 
 function EmptyFeedback() {
-  return <div>Não foi possível recuperar informações sobre esse lugar</div>;
+    return <div>Não foi possível recuperar informações sobre esse lugar</div>;
 }
 
 export default SearchResult;

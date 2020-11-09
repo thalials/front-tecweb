@@ -1,6 +1,6 @@
 .search-result-outer {
     display: flex;
-    justify-content: center; 
+    justify-content: center;
 }
 
 .search-result-card {
@@ -9,7 +9,7 @@
     box-sizing: border-box;
     width: 80vw;
     max-width: 800px;
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
 }
 .result-card-outer {
     display: grid;
@@ -29,13 +29,16 @@
     margin: 0 0 0 0;
 }
 .result-card-outer * {
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0.00938em;
 }
 .result-card-outer ul {
     margin: 0.5rem 0;
 }
 .result-card-outer ul li {
-    margin: 0.5rem
+    margin: 0.5rem;
 }
 
 .print-share {

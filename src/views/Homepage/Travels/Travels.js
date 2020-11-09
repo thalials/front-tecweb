@@ -1,6 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { listUserPlaces, createQRCodeURI } from '../../../API/Requests';
+import {
+    listUserPlaces,
+    createQRCodeURI,
+    toggleLike
+} from '../../../API/Requests';
 import LoadingIndicator from '../../../Components/LoadingIndicator';
 import Note from '../../../Components/Note';
 
@@ -83,7 +87,6 @@ function DisplayPlace({ place }) {
     const qrCodeURI = createQRCodeURI(window.location.href + '/' + city._id);
     const time = new Date().toLocaleString();
 
-    // console.log(country.currency);
     const classes = useStyles();
     const acronym = city?.name
         ?.split(/\s/)
@@ -101,10 +104,16 @@ function DisplayPlace({ place }) {
     function addNote() {
         if (emptyNotes.current == 0) {
             emptyNotes.current += 1;
-            console.log(place._id);
-            console.log(emptyNotes.current);
-            setNotes(notes.concat([{ place: place._id }]));
+            setNotes(notes.concat([{ place: place._id, writable: true }]));
         }
+    }
+
+    function fixLastAdded(_id) {
+        setNotes((prev) => {
+            prev.slice(-1)._id = _id;
+            return prev;
+        });
+        emptyNotes.current = 0;
     }
 
     return (
@@ -123,10 +132,10 @@ function DisplayPlace({ place }) {
 
                 <CardMedia className='city-map'>
                     <img
-                        src={`https://source.unsplash.com/800x300/?landscape,${splittedCityName.join(
-                            "+"
-                          )}`}/>
-
+                        src={`https://source.unsplash.com/800x300/?nature,outdoor,${splittedCityName.join(
+                            '+'
+                        )}`}
+                    />
                 </CardMedia>
 
                 <CardContent>
@@ -144,7 +153,9 @@ function DisplayPlace({ place }) {
                             className='favorite'
                             aria-label='add to favorites'
                             onClick={() => {
-                                // handleLike
+                                toggleLike(city._id);
+                                setLikedByMe(false);
+                                setLikes((prev) => prev - 1);
                             }}
                             color='secondary'>
                             {likedByMe ? (
@@ -197,7 +208,7 @@ function DisplayPlace({ place }) {
                             <span className='label'>Telefone (DDI): </span>+
                             {country.phone}
                         </Typography>
-                        <Typography>
+
                         {!!country.currency.length && (
                             <div className='country-currency'>
                                 <span className='label'>
@@ -208,16 +219,13 @@ function DisplayPlace({ place }) {
                                         <li
                                             key={index}
                                             className='currency-item'>
-                                            1 {cur.unit} equivale a USD{' '}
-                                            {cur.price}
+                                            {`1 USD equivale a ${cur.price} ${cur.unit}`}
                                         </li>
                                     ))}
                                 </ul>
                             </div>
                         )}
-                        </Typography>
-                        
-                        <Typography>
+
                         <div className='country-languages'>
                             <span className='label'>
                                 Linguagem(ns) utilizada(s) nesse país:
@@ -230,25 +238,32 @@ function DisplayPlace({ place }) {
                                 ))}
                             </ul>
                         </div>
-                        </Typography>
 
                         {notes.map((note) => (
                             <Note
                                 key={note._id || 'EmptyNote'}
                                 data={note}
                                 removeFromList={removeFromList}
+                                fixLastAdded={fixLastAdded}
+                                writable={note.writable || false}
                             />
                         ))}
 
-                        <button onClick={addNote}>Adicionar uma nota</button>
+                        <div className='add-notes'>
+                            <button onClick={addNote}>
+                                Adicionar uma nota
+                            </button>
+                        </div>
 
                         <div className='print-share'>
-                            <img
-                                src={qrCodeURI}
-                                className='share-qrcode'
-                                width='150'
-                                height='150'
-                            />
+                            <Link to={`/${city._id}`}>
+                                <img
+                                    src={qrCodeURI}
+                                    className='share-qrcode'
+                                    width='150'
+                                    height='150'
+                                />
+                            </Link>
                             <IconButton
                                 aria-label='share'
                                 onClick={() => window.print()}>

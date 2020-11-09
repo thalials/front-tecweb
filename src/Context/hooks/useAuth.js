@@ -41,7 +41,6 @@ export default function useAuth() {
                 saveTokenAndName(token, user.name);
             })
             .catch((error) => {
-                console.log(error);
             })
             .finally(() => {
                 setAuthenticated(true); // antes e history.push

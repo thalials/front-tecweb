@@ -9,11 +9,20 @@
     display: flex;
     flex-direction: column;
 }
+
+.note-outer .note-header {
+    display: flex;
+    flex-direction: row;
+}
+.note-outer .created-at {
+    vertical-align: middle
+}
 .note-inner {
     display: grid;
     grid-template-columns: 1fr 2rem;
     row-gap: 0.5rem;
 }
+
 .note-outer input,
 .note-outer textarea {
     border: 1px solid transparent;
@@ -76,16 +85,21 @@
 .note-outer .button-group button:active {
     opacity: 0.8;
 }
-
+.note-outer .button-group button i {
+    margin-right: 5px;
+}
 .note-outer .button-group .red {
     background-color: #ff2000;
+    box-shadow: 0px 3px 10px #ff200055;
 }
 .note-outer .button-group .green {
     background-color: #24af29;
+    box-shadow: 0px 3px 10px #24af2955;
 }
 
 .note-outer .button-group button:hover {
     background-color: #202020;
+    box-shadow: 0px 3px 10px #20202055;
     color: #f6f6f6;
 }
 .note-submit {
