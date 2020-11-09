@@ -11,7 +11,7 @@ function Travels() {
         listUserPlaces().then((placesArray) => {
             setPlaces(placesArray);
             setLoading(false);
-            console.log(places.length);
+            // console.log(places.length);
         });
     }, []);
 

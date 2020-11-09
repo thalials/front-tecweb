@@ -207,6 +207,7 @@ function ResultCard(props) {
                             </Typography>
 
                             {!!country.currency.length && (
+                                <Typography> 
                                 <div className='country-currency'>
                                     Moeda(s) utilizada(s) nesse país:
                                     <ul className='currency-list'>
@@ -220,8 +221,9 @@ function ResultCard(props) {
                                         ))}
                                     </ul>
                                 </div>
+                                </Typography>
                             )}
-
+                            <Typography>
                             <div className='country-languages'>
                                 Language(s):
                                 <ul className='language-list'>
@@ -234,6 +236,7 @@ function ResultCard(props) {
                                     ))}
                                 </ul>
                             </div>
+                            </Typography>
                             <div className='print-share'>
                                 <img
                                     src={qrCodeURI}
