@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: #F6F6F6;
+    background: #f6f6f6;
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -32,6 +32,41 @@
     font-weight: bold;
 }
 
+.places-card .add-notes {
+    display: flex;
+    margin: 0.5rem 0px;
+    justify-content: center;
+}
+
+.places-card .add-notes button {
+    background-color: #2429af;
+    box-shadow: 0px 3px 10px #2429a955;
+    border: 1px solid transparent;
+    color: #f6f6f6;
+    padding: 0.25rem 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: ease 100ms;
+    -webkit-transition: ease 100ms;
+    -moz-transition: ease 100ms;
+    -ms-transition: ease 100ms;
+    -o-transition: ease 100ms;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+.places-card .add-notes button:active {
+    opacity: 0.8;background-color: #202020;
+    box-shadow: 0px 3px 10px #20202055;
+    color: #f6f6f6;
+}
+.places-card .add-notes button:hover {
+     background-color: #202020;
+    box-shadow: 0px 3px 10px #20202055;
+    color: #f6f6f6;
+}
 .print-share {
     display: flex;
     flex-direction: column;
