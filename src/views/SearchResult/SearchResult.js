@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useLayoutEffect } from "react";
+import { Link } from 'react-router-dom';
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
@@ -15,11 +16,14 @@ import { Favorite, FavoriteBorderOutlined } from "@material-ui/icons";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+
+import { createQRCodeURI, toggleLike, getCityInfo } from "../../API/Requests";
+import { getCityId } from "../../Helpers";
+import "./styles.css";
 import Header from "../../Components/Header";
 import LoadingIndicator from "../../Components/LoadingIndicator/LoadingIndicator";
-import { createQRCodeURI, toggleLike, getCityInfo } from "../../API/Requests";
 
-import "./styles.css";
+
 
 function SearchResult(props) {
   const _id = props.match.params.city_id;
@@ -193,44 +197,59 @@ function ResultCard(props) {
               <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
                   <Typography paragraph className="country-continent">
+                    <span className="label">Continente: </span>
                     Continent: {country.continent.name}
                   </Typography>
 
                   <Typography paragraph className="country-name">
+                    <span className="label">País: </span>
                     Country: {country.name} ({country.native})
                   </Typography>
 
                   <Typography paragraph className="country-capital">
-                    Capital: {country.capital}
+                    <span className="label">Capital: </span>
+                    <Link to={getCityId(country.capital)}>
+                      {country.capital}
+                    </Link>
                   </Typography>
 
                   <Typography paragraph className="country-phone">
-                    Phone: +{country.phone}
+                    <span className="label">Telefone (DDI): </span>+
+                    {country.phone}
                   </Typography>
 
-                  {!!country?.currency?.length && (
-                    <div className="country-currency">
-                      Moeda(s) utilizada(s) nesse país:
-                      <ul className="currency-list">
-                        {country.currency.map((cur, index) => (
-                          <li key={index} className="currency-item">
-                            1 {cur.unit} equivale a USD {cur.price}
+                  <Typography>
+                    {!!country?.currency?.length && (
+                      <div className="country-currency">
+                        <span className="label">
+                          Moeda(s) utilizada(s) nesse país:
+                        </span>
+                        <ul className="currency-list">
+                          {country.currency.map((cur, index) => (
+                            <li key={index} className="currency-item">
+                              1 {cur.unit} equivale a USD {cur.price}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </Typography>
+
+                  <Typography>
+                    <div className="country-languages">
+                      <span className="label">
+                        Linguagem(ns) utilizada(s) nesse país:
+                      </span>
+                      <ul className="language-list">
+                        {country.languages.map((item, index) => (
+                          <li key={index} className="language-item">
+                            {item.name}
                           </li>
                         ))}
                       </ul>
                     </div>
-                  )}
+                  </Typography>
 
-                  <div className="country-languages">
-                    Language(s):
-                    <ul className="language-list">
-                      {country.languages.map((item, index) => (
-                        <li key={index} className="language-item">
-                          {item.name}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
                   <div className="print-share">
                     <img
                       src={qrCodeURI}
