@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useLayoutEffect } from 'react';
-import Card from '@material-ui/core/Card';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
+import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
+import { CardHeader } from '@material-ui/core';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
@@ -13,13 +14,12 @@ import { red } from '@material-ui/core/colors';
 import { Favorite, FavoriteBorderOutlined } from '@material-ui/icons';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert'; 
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Header from '../../Components/Header';
-import LoadingIndicator from '../../Components/LoadingIndicator/LoadingIndicator'; 
+import LoadingIndicator from '../../Components/LoadingIndicator/LoadingIndicator';
 import { createQRCodeURI, toggleLike, getCityInfo } from '../../API/Requests';
 
 import './styles.css';
-import { CardHeader } from '@material-ui/core';
 
 function SearchResult(props) {
     const _id = props.match.params.city_id;
@@ -84,7 +84,7 @@ function ResultCard(props) {
     };
 
     async function handleLike() {
-        toggleLike(id).then((placeIsLiked) => { 
+        toggleLike(id).then((placeIsLiked) => {
             setLikedByMe(placeIsLiked);
             if (placeIsLiked) {
                 setLikes((prev) => prev + 1);
