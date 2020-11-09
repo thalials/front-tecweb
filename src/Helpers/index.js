@@ -1,4 +1,5 @@
 import api from '../API/api';
+const data = require('../Data/short_cities.json');
 
 export function createErrorMessage(msg) {
     return {
@@ -19,4 +20,17 @@ export function saveTokenAndName(token, name) {
     api.defaults.headers.Authorization = `Bearer ${token}`;
     localStorage.setItem('token', token);
     localStorage.setItem('username', name);
+}
+
+/**
+ *
+ * @param {string} cityName
+ */
+export function getCityId(cityName) {
+    const [{ _id }] = data.filter((city) => city.name === cityName);
+
+    if (!!_id.length) {
+        return '/' + _id;
+    }
+    return '/';
 }

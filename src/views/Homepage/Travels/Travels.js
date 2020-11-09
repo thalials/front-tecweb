@@ -1,7 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react';
-
-import { listUserPlaces } from '../../../API/Requests';
+import { Link } from 'react-router-dom';
+import { listUserPlaces, createQRCodeURI } from '../../../API/Requests';
 import LoadingIndicator from '../../../Components/LoadingIndicator';
+import Note from '../../../Components/Note';
 
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -20,9 +21,9 @@ import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-import { createQRCodeURI } from '../../../API/Requests';
+import { getCityId } from '../../../Helpers';
 
-import './style.css'
+import './style.css';
 
 function Travels() {
     const [places, setPlaces] = useState(null);
@@ -31,7 +32,6 @@ function Travels() {
         listUserPlaces().then((placesArray) => {
             setPlaces(placesArray);
             setLoading(false);
-            // console.log(places.length);
         });
     }, []);
 
@@ -40,7 +40,9 @@ function Travels() {
             {loading ? (
                 <LoadingIndicator width={30} />
             ) : (
-                places.map((place) => <DisplayPlace place={place} />)
+                places.map((place) => (
+                    <DisplayPlace key={place._id} place={place} />
+                ))
             )}
         </div>
     );
@@ -69,18 +71,39 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 function DisplayPlace({ place }) {
-    const { city, anotations, createdAt } = place;
+    const { city, annotations, createdAt } = place;
     const { name, lat, lng, country } = city;
     const [likedByMe, setLikedByMe] = useState(true);
     const [likes, setLikes] = useState(city.likes);
     const [expanded, setExpanded] = useState(false);
+    const [notes, setNotes] = useState(annotations);
+    const emptyNotes = useRef(0);
 
-    const qrCodeURI = createQRCodeURI(window.location.href);
+    const qrCodeURI = createQRCodeURI(window.location.href + '/' + city._id);
 
+    // console.log(country.currency);
     const classes = useStyles();
     const acronym = city?.name
         ?.split(/\s/)
         ?.reduce((response, word) => (response += word.slice(0, 1)), '');
+
+    function removeFromList(_id) {
+        if (!_id) {
+            setNotes((prev) => prev.slice(0, prev.length - 1));
+            emptyNotes.current -= 1;
+        } else {
+            setNotes((prev) => prev.filter((note) => note._id !== _id));
+        }
+    }
+
+    function addNote() {
+        if (emptyNotes.current == 0) {
+            emptyNotes.current += 1;
+            console.log(place._id);
+            console.log(emptyNotes.current);
+            setNotes(notes.concat([{ place: place._id }]));
+        }
+    }
 
     return (
         <div className='places-card'>
@@ -96,13 +119,13 @@ function DisplayPlace({ place }) {
                             <MoreVertIcon />
                         </IconButton>
                     }
-                    title={city.name}
+                    title={name}
                     subheader={createdAt}
                 />
 
                 <CardMedia className='city-map'>
                     <iframe
-                        src={`https://maps.google.com/maps?q=${city.lat}, ${city.lng}&z=12&output=embed`}
+                        src={`https://maps.google.com/maps?q=${lat}, ${lng}&z=12&output=embed`}
                         width='100%'
                         height='300px'
                         frameBorder='0'></iframe>
@@ -156,24 +179,32 @@ function DisplayPlace({ place }) {
                 <Collapse in={expanded} timeout='auto' unmountOnExit>
                     <CardContent>
                         <Typography paragraph className='country-continent'>
-                            Continent: {country.continent.name}
+                            <span className='label'>Continente: </span>
+                            {country.continent.name}
                         </Typography>
 
                         <Typography paragraph className='country-name'>
-                            Country: {country.name} ({country.native})
+                            <span className='label'>País: </span>
+                            {country.name} ({country.native})
                         </Typography>
 
                         <Typography paragraph className='country-capital'>
-                            Capital: {country.capital}
+                            <span className='label'>Capital: </span>
+                            <Link to={getCityId(country.capital)}>
+                                {country.capital}
+                            </Link>
                         </Typography>
 
                         <Typography paragraph className='country-phone'>
-                            Phone: +{country.phone}
+                            <span className='label'>Telefone (DDI): </span>+
+                            {country.phone}
                         </Typography>
 
                         {!!country.currency.length && (
                             <div className='country-currency'>
-                                Moeda(s) utilizada(s) nesse país:
+                                <span className='label'>
+                                    Moeda(s) utilizada(s) nesse país:
+                                </span>
                                 <ul className='currency-list'>
                                     {country.currency.map((cur, index) => (
                                         <li
@@ -188,7 +219,9 @@ function DisplayPlace({ place }) {
                         )}
 
                         <div className='country-languages'>
-                            Language(s):
+                            <span className='label'>
+                                Linguagem(ns) utilizada(s) nesse país:
+                            </span>
                             <ul className='language-list'>
                                 {country.languages.map((item, index) => (
                                     <li key={index} className='language-item'>
@@ -197,6 +230,17 @@ function DisplayPlace({ place }) {
                                 ))}
                             </ul>
                         </div>
+
+                        {notes.map((note) => (
+                            <Note
+                                key={note._id || 'EmptyNote'}
+                                data={note}
+                                removeFromList={removeFromList}
+                            />
+                        ))}
+
+                        <button onClick={addNote}>Adicionar uma nota</button>
+
                         <div className='print-share'>
                             <img
                                 src={qrCodeURI}
