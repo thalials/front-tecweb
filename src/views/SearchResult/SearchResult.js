@@ -16,6 +16,7 @@ import { Favorite, FavoriteBorderOutlined } from "@material-ui/icons";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import { ReactComponent as ReactLogo } from "../../assets/logo_wiki.svg";
 
 import { createQRCodeURI, toggleLike, getCityInfo } from "../../API/Requests";
 import { getCityId } from "../../Helpers";
@@ -273,12 +274,18 @@ function ResultCard(props) {
                                     </Typography>
 
                                     <div className='print-share'>
+                                        <div className="wiki">
                                         <img
                                             src={qrCodeURI}
                                             className='share-qrcode'
-                                            width='150'
-                                            height='150'
+                                            width='100' 
+                                            height='100'
                                         />
+                                        
+                                        <a href ={`https://pt.wikipedia.org/wiki/${city.name}`}>
+                                            <ReactLogo/>
+                                        </a>
+                                        </div>
                                         <IconButton
                                             aria-label='share'
                                             onClick={() => window.print()}>
