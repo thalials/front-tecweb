@@ -24,6 +24,7 @@ import { Favorite, FavoriteBorderOutlined } from '@material-ui/icons';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { ReactComponent as ReactLogo } from "../../../assets/logo_wiki.svg";
 
 import { getCityId } from '../../../Helpers';
 
@@ -256,6 +257,7 @@ function DisplayPlace({ place }) {
                         </div>
 
                         <div className='print-share'>
+                            <div className="wiki">
                             <Link to={`/${city._id}`}>
                                 <img
                                     src={qrCodeURI}
@@ -264,12 +266,17 @@ function DisplayPlace({ place }) {
                                     height='150'
                                 />
                             </Link>
+                            <a href ={`https://pt.wikipedia.org/wiki/${city.name}`}>
+                                <ReactLogo/>
+                            </a>
+                            </div>
                             <IconButton
                                 aria-label='share'
                                 onClick={() => window.print()}>
                                 <ShareIcon />
                             </IconButton>
                             Compartilhe com seus amigos e amigas!
+                            
                         </div>
                     </CardContent>
                 </Collapse>
