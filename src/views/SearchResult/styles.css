@@ -1,69 +1,72 @@
 .search-result-outer {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .search-result-card {
-    background-color: #f6f6f6;
-    padding: 1rem;
-    box-sizing: border-box;
-    width: 80vw;
-    max-width: 800px;
-    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  background-color: #f6f6f6;
+  padding: 1rem;
+  box-sizing: border-box;
+  width: 80vw;
+  max-width: 800px;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 .result-card-outer {
-    display: grid;
-    row-gap: 0.5rem;
+  display: grid;
+  row-gap: 0.5rem;
 }
 
 .city-map {
-    /* display: flex; */
-    max-width: 800px;
-    max-height: 300px;
-    box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.13);
+  /* display: flex; */
+  max-width: 800px;
+  max-height: 300px;
+  box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.13);
 }
 .search-result-main {
-    height: 90vh;
-    justify-content: center;
-    display: block;
-    margin: 0 0 0 0;
+  height: 90vh;
+  justify-content: center;
+  display: block;
+  margin: 0 0 0 0;
 }
 .result-card-outer * {
-    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
-    font-weight: 400;
-    line-height: 1.5;
-    letter-spacing: 0.00938em;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;
 }
 .result-card-outer ul {
-    margin: 0.5rem 0;
+  margin: 0.5rem 0;
 }
 .result-card-outer ul li {
-    margin: 0.5rem;
+  margin: 0.5rem;
 }
 
 .print-share {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* background-color: blue; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* background-color: blue; */
 }
-.wiki{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    /* background-color: blueviolet; */
-    width:100%;
-
+.wiki {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  /* background-color: blueviolet; */
+  width: 100%;
+}
+.insta_logo {
+  width: 100px;
+  height: 100px;
 }
 
 .share-qrcode {
-    padding: 0.5rem;
-    background-color: white;
-    box-shadow: 0px 1px 20px #ccc;
+  padding: 0.5rem;
+  background-color: white;
+  box-shadow: 0px 1px 20px #ccc;
 }
 
 .label {
-    font-weight: bold;
+  font-weight: bold;
 }
