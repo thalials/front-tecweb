@@ -25,6 +25,8 @@ import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { ReactComponent as ReactLogo } from "../../../assets/logo_wiki.svg";
+import { ReactComponent as ReactLogoMap } from "../../../assets/info.svg";
+
 
 import { getCityId } from '../../../Helpers';
 
@@ -262,12 +264,15 @@ function DisplayPlace({ place }) {
                                 <img
                                     src={qrCodeURI}
                                     className='share-qrcode'
-                                    width='150'
-                                    height='150'
+                                    width='100'
+                                    height='100'
                                 />
                             </Link>
                             <a href ={`https://pt.wikipedia.org/wiki/${city.name}`}>
                                 <ReactLogo/>
+                            </a>
+                            <a href = {`https://www.dicasdeviagem.com/?s=${city.name}`}>
+                                <ReactLogoMap width={100} height={100}/>
                             </a>
                             </div>
                             <IconButton
