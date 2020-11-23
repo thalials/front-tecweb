@@ -80,3 +80,10 @@
     background-color: white;
     box-shadow: 0px 1px 20px #ccc;
 }
+
+.lk{
+    display: flex;
+    padding: 10px;
+    width:100%;
+
+}
