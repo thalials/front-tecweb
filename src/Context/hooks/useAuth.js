@@ -74,10 +74,15 @@ export default function useAuth() {
             return createErrorMessage('Email inválido');
         }
 
-        // teste com o password
+        // teste com a password
         if (!password) {
             // se nao tiver preenchido
             return createErrorMessage('A senha deve ser preenchida');
+        }
+        // teste com a description
+        if (!description) {
+            // se nao tiver preenchido
+            return createErrorMessage('A Descrição deve ser preenchida');
         }
         return await api
             .post('/auth/register', {
@@ -87,8 +92,12 @@ export default function useAuth() {
                 description
             })
             .then((response) => {
+                console.log(response.data)
                 const { token, user } = response.data;
+                console.log(user)
                 saveTokenAndName(token, user.name, user.description); //Function mudada para salvar os 3
+                
+                console.log(user.description)
                 console.log("Salvos")
                 setTimeout(() => {
                     setAuthenticated(true);

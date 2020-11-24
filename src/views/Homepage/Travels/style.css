@@ -1,3 +1,27 @@
+.outer{
+    background: #f6f6f6;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+}
+.description-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    font-size: 1rem;
+
+    width: 90vw;
+    max-width: 800px;
+    margin-top: 1rem;
+    padding-top:4rem;
+    padding-bottom:2rem;
+
+
+}
+
 .travels-outer-container {
     display: flex;
     flex-direction: column;

@@ -29,6 +29,9 @@ import { getCityId } from '../../../Helpers';
 
 import './style.css';
 
+const description = localStorage.getItem('description');
+
+
 function Travels() {
     const [places, setPlaces] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -40,14 +43,21 @@ function Travels() {
     }, []);
 
     return (
-        <div className='travels-outer-container'>
-            {loading ? (
-                <LoadingIndicator width={30} />
-            ) : (
-                places.map((place) => (
-                    <DisplayPlace key={place._id} place={place} />
-                ))
-            )}
+        <div className="outer">
+            <div className='description-container'>
+            <span className='description'>{description}</span>
+
+
+            </div>
+            <div className='travels-outer-container'>
+                {loading ? (
+                    <LoadingIndicator width={30} />
+                ) : (
+                    places.map((place) => (
+                        <DisplayPlace key={place._id} place={place} />
+                    ))
+                )}
+            </div>
         </div>
     );
 }
