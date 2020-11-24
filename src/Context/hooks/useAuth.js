@@ -54,7 +54,7 @@ export default function useAuth() {
         api.defaults.headers.Authorization = undefined;
         history.push('/login');
     }
-    async function handleRegister(name, email, password) {
+    async function handleRegister(name, email, password, description) {
         // teste com name
         if (!name) {
             return createErrorMessage('O nome deve ser preenchido');
@@ -83,11 +83,13 @@ export default function useAuth() {
             .post('/auth/register', {
                 name,
                 email,
-                password
+                password,
+                description
             })
             .then((response) => {
                 const { token, user } = response.data;
-                saveTokenAndName(token, user.name);
+                saveTokenAndName(token, user.name, user.description); //Function mudada para salvar os 3
+                console.log("Salvos")
                 setTimeout(() => {
                     setAuthenticated(true);
                     history.push('/');
