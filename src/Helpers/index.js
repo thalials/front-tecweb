@@ -16,10 +16,11 @@ export function createSuccessMessage(msg) {
     };
 }
 
-export function saveTokenAndName(token, name) {
+export function saveTokenAndName(token, name, description) {
     api.defaults.headers.Authorization = `Bearer ${token}`;
     localStorage.setItem('token', token);
     localStorage.setItem('username', name);
+    localStorage.setItem('description', description);
 }
 
 /**
