@@ -45,6 +45,9 @@ function Travels() {
     return (
         <div className="outer">
             <div className='description-container'>
+            <div className='description-title'>
+                <p> Descrição do seu perfil</p>
+            </div>
             <span className='description'>{description}</span>
 
 
