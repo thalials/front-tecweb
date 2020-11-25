@@ -241,23 +241,14 @@ function DisplayPlace({ place }) {
             </div>
 
             <div className="print-share">
-              <div className="wiki">
-                <Link to={`/${city._id}`}>
-                  <img
-                    src={qrCodeURI}
-                    className="share-qrcode"
-                    width="150"
-                    height="150"
-                  />
-                </Link>
-                <a
-                  href={`https://www.instagram.com/explore/tags/${cityName
-                    .split(" ")
-                    .join("")}/`}
-                >
-                  <ReactLogo1 className="insta_logo" />
-                </a>
-              </div>
+              <Link to={`/${city._id}`}>
+                <img
+                  src={qrCodeURI}
+                  className="share-qrcode"
+                  width="150"
+                  height="150"
+                />
+              </Link>
               <IconButton aria-label="share" onClick={() => window.print()}>
                 <ShareIcon />
               </IconButton>

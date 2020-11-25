@@ -26,6 +26,7 @@ import Header from "../../Components/Header";
 import LoadingIndicator from "../../Components/LoadingIndicator/LoadingIndicator";
 
 function SearchResult(props) {
+  console.log(props);
   const _id = props.match.params.city_id;
 
   return (
