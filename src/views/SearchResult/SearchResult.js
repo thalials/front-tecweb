@@ -151,7 +151,7 @@ function ResultCard(props) {
                                     frameBorder='0'></iframe>
                             </CardMedia>
 
-                            <CardContent>
+                            <CardContent style={{ padding:'4px'}}>
                                 <div className='likes'>
                                     <IconButton
                                         className='favorite'
@@ -174,8 +174,8 @@ function ResultCard(props) {
                                 </div>
                             </CardContent>
 
-                            <CardContent>
-                                <div className='likes'>
+                            <CardContent style={{ padding:'4px'}}>
+                                <div className='dislikes'>
                                     <IconButton
                                         className='favorite'
                                         aria-label='add to favorites'
@@ -198,8 +198,6 @@ function ResultCard(props) {
                             </CardContent>
 
                             <CardActions disableSpacing>
-
-
                                 <Typography
                                     variant='body2'
                                     color='textSecondary'
