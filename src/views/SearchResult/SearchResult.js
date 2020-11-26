@@ -18,6 +18,9 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { ReactComponent as ReactLogo } from "../../assets/logo_wiki.svg";
 import { ReactComponent as ReactLogo1 } from "../../assets/instagram.svg";
+import { ReactComponent as ReactLogo2 } from "../../assets/facebook.svg";
+import { ReactComponent as ReactLogo3 } from "../../assets/panorama.svg";
+import { ReactComponent as ReactLogo4 } from "../../assets/youtube.svg";
 
 import { createQRCodeURI, toggleLike, getCityInfo } from "../../API/Requests";
 import { getCityId } from "../../Helpers";
@@ -249,15 +252,7 @@ function ResultCard(props) {
                     </div>
                   </Typography>
 
-                  <div className="print-share">
-                    <div className="wiki">
-                      <img
-                        src={qrCodeURI}
-                        className="share-qrcode"
-                        width="100"
-                        height="100"
-                      />
-
+                  <div className="wiki">
                       <a href={`https://pt.wikipedia.org/wiki/${city.name}`}>
                         <ReactLogo />
                       </a>
@@ -268,15 +263,36 @@ function ResultCard(props) {
                       >
                         <ReactLogo1 className="insta_logo" />
                       </a>
-                    </div>
-                    <IconButton
-                      aria-label="share"
-                      onClick={() => window.print()}
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    Compartilhe com seus amigos e amigas!
+                      <a href ={`https://www.facebook.com/search/places/?q=${city.name}`}>
+                        <ReactLogo2 className="insta_logo" />
+                      </a>
+                      <a href ={`https://www.google.com/search?q=${city.name}+fotos+cidade&sxsrf=ALeKk01RQe-7Q4UgGrTXi8QaHjGgEu8LTg:1606083309236&source=lnms&tbm=isch&sa=X&ved=2ahUKEwi-mYHJlpftAhV9F7kGHf0tCwUQ_AUoAnoECAUQBA&biw=1536&bih=722`}>
+                        <ReactLogo3 className="insta_logo" />
+                      </a>
+                      <a href ={`https://www.youtube.com/results?search_query=${city.name}+cidade`}>
+                        <ReactLogo4 className="insta_logo" />
+                      </a>
                   </div>
+                  
+                  
+
+                  <div className="print-share">
+                      <img
+                            src={qrCodeURI}
+                            className="share-qrcode"
+                            width="100"
+                            height="100"
+                          />
+
+                      <IconButton
+                          aria-label="share"
+                          onClick={() => window.print()}
+                        >
+                          <ShareIcon />
+                        </IconButton>
+                        Compartilhe com seus amigos e amigas!
+                  </div>
+                    
                 </CardContent>
               </Collapse>
             </Card>{" "}
