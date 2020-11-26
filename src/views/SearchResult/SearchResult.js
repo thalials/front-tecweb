@@ -152,15 +152,6 @@ function ResultCard(props) {
                             </CardMedia>
 
                             <CardContent>
-                                <Typography
-                                    variant='body2'
-                                    color='textSecondary'
-                                    component='p'>
-                                    Clique para ver mais detalhes desse lugar =)
-                                </Typography>
-                            </CardContent>
-
-                            <CardActions disableSpacing>
                                 <div className='likes'>
                                     <IconButton
                                         className='favorite'
@@ -181,6 +172,40 @@ function ResultCard(props) {
                                         ? 'Apenas você curtiu essa cidade'
                                         : `${likes} pessoas curtiram essa cidade`}
                                 </div>
+                            </CardContent>
+
+                            <CardContent>
+                                <div className='likes'>
+                                    <IconButton
+                                        className='favorite'
+                                        aria-label='add to favorites'
+                                        onClick={handleLike}
+                                        color='secondary'>
+                                        {likedByMe ? (
+                                            <Favorite />
+                                        ) : (
+                                            <FavoriteBorderOutlined />
+                                        )}
+                                    </IconButton>
+                                    {likes === 0
+                                        ? 'Ninguém curtiu essa cidade ainda'
+                                        : likes === 1 && !likedByMe
+                                        ? 'Uma pessoa curtiu essa cidade'
+                                        : likes === 1 && likedByMe
+                                        ? 'Apenas você curtiu essa cidade'
+                                        : `${likes} pessoas curtiram essa cidade`}
+                                </div>
+                            </CardContent>
+
+                            <CardActions disableSpacing>
+
+
+                                <Typography
+                                    variant='body2'
+                                    color='textSecondary'
+                                    component='p'>
+                                    Clique para ver mais detalhes desse lugar =)
+                                </Typography>
 
                                 <IconButton
                                     className={clsx(classes.expand, {
@@ -192,6 +217,7 @@ function ResultCard(props) {
                                     <ExpandMoreIcon />
                                 </IconButton>
                             </CardActions>
+
                             <Collapse
                                 in={expanded}
                                 timeout='auto'
