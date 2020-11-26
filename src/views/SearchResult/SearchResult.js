@@ -12,7 +12,7 @@ import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
-import { Favorite, FavoriteBorderOutlined } from "@material-ui/icons";
+import { Favorite, FavoriteBorderOutlined, ThumbUp, ThumbUpOutlined, ThumbDown, ThumbDownAltOutlined } from "@material-ui/icons";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
@@ -159,9 +159,9 @@ function ResultCard(props) {
                                         onClick={handleLike}
                                         color='secondary'>
                                         {likedByMe ? (
-                                            <Favorite />
+                                            <ThumbUp />
                                         ) : (
-                                            <FavoriteBorderOutlined />
+                                            <ThumbUpOutlined />
                                         )}
                                     </IconButton>
                                     {likes === 0
@@ -182,18 +182,18 @@ function ResultCard(props) {
                                         onClick={handleLike}
                                         color='secondary'>
                                         {likedByMe ? (
-                                            <Favorite />
+                                            <ThumbDown />
                                         ) : (
-                                            <FavoriteBorderOutlined />
+                                            <ThumbDownAltOutlined />
                                         )}
                                     </IconButton>
                                     {likes === 0
-                                        ? 'Ninguém curtiu essa cidade ainda'
+                                        ? 'Ninguém descurtiu essa cidade ainda'
                                         : likes === 1 && !likedByMe
-                                        ? 'Uma pessoa curtiu essa cidade'
+                                        ? 'Uma pessoa não curtiu essa cidade'
                                         : likes === 1 && likedByMe
-                                        ? 'Apenas você curtiu essa cidade'
-                                        : `${likes} pessoas curtiram essa cidade`}
+                                        ? 'Apenas você não curtiu essa cidade'
+                                        : `${likes} pessoas não curtiram essa cidade`}
                                 </div>
                             </CardContent>
 
