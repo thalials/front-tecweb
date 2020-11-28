@@ -17,7 +17,7 @@ import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
-import { createQRCodeURI, toggleLike, getCityInfo } from "../../API/Requests";
+import { createQRCodeURI, toggleLike, getCityInfo, toggleDislike } from "../../API/Requests";
 import { getCityId } from "../../Helpers";
 import "./styles.css";
 import Header from "../../Components/Header";
@@ -67,6 +67,8 @@ function ResultCard(props) {
     const [loading, setLoading] = useState(true);
     const [likedByMe, setLikedByMe] = useState(false);
     const [likes, setLikes] = useState(0);
+    const [dislikedByMe, setDislikedByMe] = useState(false);
+    const [dislikes, setDislikes] = useState(0);
     const [error, setError] = useState(false);
 
     const qrCodeURI = createQRCodeURI(window.location.href);
@@ -94,6 +96,17 @@ function ResultCard(props) {
         });
     }
 
+    async function handleDislike() {
+        toggleDislike(id).then((placeIsDisliked) => {
+            setDislikedByMe(placeIsDisliked);
+            if (placeIsDisliked) {
+                setDislikes((prev) => prev + 1);
+            } else {
+                setDislikes((prev) => prev - 1);
+            }
+        });
+    }
+
     const curTime = new Date().toLocaleString();
 
     useLayoutEffect(() => {
@@ -105,6 +118,8 @@ function ResultCard(props) {
                     setCity(city);
                     setLikes(city.likes);
                     setLikedByMe(city.likedByMe);
+                    setDislikes(city.dislikes);
+                    setDislikedByMe(city.dislikedByMe);
                 })
                 .catch(() => {
                     setError(true);
@@ -179,21 +194,21 @@ function ResultCard(props) {
                                     <IconButton
                                         className='favorite'
                                         aria-label='add to favorites'
-                                        onClick={handleLike}
+                                        onClick={handleDislike}
                                         color='secondary'>
-                                        {likedByMe ? (
+                                        {dislikedByMe == true ? (
                                             <ThumbDown />
                                         ) : (
                                             <ThumbDownAltOutlined />
                                         )}
                                     </IconButton>
-                                    {likes === 0
+                                    {dislikes === 0
                                         ? 'Ninguém descurtiu essa cidade ainda'
-                                        : likes === 1 && !likedByMe
+                                        : dislikes === 1 && !dislikedByMe
                                         ? 'Uma pessoa não curtiu essa cidade'
-                                        : likes === 1 && likedByMe
+                                        : dislikes === 1 && dislikedByMe
                                         ? 'Apenas você não curtiu essa cidade'
-                                        : `${likes} pessoas não curtiram essa cidade`}
+                                        : `${dislikes} pessoas não curtiram essa cidade`}
                                 </div>
                             </CardContent>
 
