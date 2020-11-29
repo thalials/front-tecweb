@@ -2,8 +2,7 @@ import React from "react";
 import { shallow } from "enzyme";
 import toJson from "enzyme-to-json";
 import App from "../App";
-import Travels from '../views/Homepage/Travels';
-
+import Travels from '../views/Homepage/Travels'
 it("Should Have Description", () => {
   
   //console.log(props.match.params.city_id);
