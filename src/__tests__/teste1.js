@@ -1,8 +1,9 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
 import toJson from "enzyme-to-json";
-import App from "../App";
+import Testing from "../Testing";
 import SearchResult from "../views/SearchResult/SearchResult";
+import ResultCard from "../views/SearchResult/SearchResult";
 
 it("should have SãoPaulo in redirect", () => {
   const props = {
@@ -11,9 +12,19 @@ it("should have SãoPaulo in redirect", () => {
         city_id: "5fa0b349b20d4824443f6f2e",
       },
     },
-    // city_id: "5fa0b349b20d4824443f6f2e",
   };
-  console.log(props.match.params.city_id);
-  const search = shallow(<SearchResult {...props} />);
+  const search = shallow(<ResultCard {...props} />);
+  expect(toJson(search)).toMatchSnapshot();
+});
+
+it("should have nothing in redirect", () => {
+  const props = {
+    match: {
+      params: {
+        city_id: "",
+      },
+    },
+  };
+  const search = shallow(<ResultCard {...props} />);
   expect(toJson(search)).toMatchSnapshot();
 });

@@ -183,6 +183,7 @@ function ResultCard(props) {
                     ? "Apenas você curtiu essa cidade"
                     : `${likes} pessoas curtiram essa cidade`}
                 </div>
+                <p>oi</p>
 
                 <IconButton
                   className={clsx(classes.expand, {
