@@ -71,6 +71,15 @@
   margin: 0.5rem 0px;
   justify-content: center;
 }
+.wiki{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    /* background-color: blueviolet; */
+    width:100%;
+
+}
 
 .places-card .add-notes button {
   background-color: #2429af;

@@ -8,6 +8,13 @@ export async function toggleLike(cityId) {
     return placeIsLiked;
 }
 
+export async function toggleDislike(cityId) {
+    const response = await api.put(`/places/dislikes/${cityId}`);
+    const { token, placeIsDisliked } = response.data;
+    await saveToken(token);
+    return placeIsDisliked;
+}
+
 export async function getCityInfo(cityId) {
     const { data } = await api.get(`/places/cities/${cityId}`);
     const { city, token } = await data;

@@ -29,17 +29,12 @@ import { ReactComponent as ReactLogo1 } from "../../../assets/instagram.svg";
 
 import { getCityId } from "../../../Helpers";
 
-import { ReactComponent as fblogo } from '../../facebook.svg';
-import { ReactComponent as ytlogo } from '../../youtube.svg';
-import { ReactComponent as fotologo } from '../../panorama.svg';
-
 
 
 
 import "./style.css";
 
 const description = localStorage.getItem('description');
-
 
 function Travels() {
   const [places, setPlaces] = useState(null);
@@ -251,25 +246,6 @@ function DisplayPlace({ place }) {
               </ul>
             </div>
 
-
-                        <div className = "lk">
-                            <a href ={`https://www.facebook.com/search/places/?q=${city.name}`}>
-                                Facebook page
-                            </a>
-                        </div>
-
-                        <div className = "lk">
-                            <a href ={`https://www.google.com/search?q=${city.name}+fotos&sxsrf=ALeKk01RQe-7Q4UgGrTXi8QaHjGgEu8LTg:1606083309236&source=lnms&tbm=isch&sa=X&ved=2ahUKEwi-mYHJlpftAhV9F7kGHf0tCwUQ_AUoAnoECAUQBA&biw=1536&bih=722`}>
-                                + Fotos
-                            </a>
-                        </div>
-
-                        <div className = "lk">
-                            <a href ={`https://www.youtube.com/results?search_query=${city.name}`}>
-                                Youtube
-                            </a>
-                        </div>
-
                         {notes.map((note) => (
                             <Note
                                 key={note._id || 'EmptyNote'}
@@ -290,22 +266,22 @@ function DisplayPlace({ place }) {
                         
 
                         <div className='print-share'>
+                            <div className="wiki">
                             <Link to={`/${city._id}`}>
                                 <img
                                     src={qrCodeURI}
                                     className='share-qrcode'
-                                    width='150'
-                                    height='150'
+                                    width='100'
+                                    height='100'
                                 />
                             </Link>
-                            
-
                             <IconButton
                                 aria-label='share'
                                 onClick={() => window.print()}>
                                 <ShareIcon />
                             </IconButton>
                             Compartilhe com seus amigos e amigas!
+                            
                         </div>
                     </CardContent>
                 </Collapse>
