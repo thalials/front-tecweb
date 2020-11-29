@@ -12,3 +12,16 @@ exports[`should have SãoPaulo in redirect 1`] = `
   </section>
 </div>
 `;
+
+exports[`should have nothing in redirect 1`] = `
+<div>
+  <Header />
+  <section
+    className="search-result-main"
+  >
+    <ResultCard
+      id=""
+    />
+  </section>
+</div>
+`;

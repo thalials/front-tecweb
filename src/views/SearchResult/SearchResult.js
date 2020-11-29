@@ -17,6 +17,10 @@ import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { ReactComponent as ReactLogo } from "../../assets/logo_wiki.svg";
+import { ReactComponent as ReactLogo1 } from "../../assets/instagram.svg";
+import { ReactComponent as ReactLogo2 } from "../../assets/facebook.svg";
+import { ReactComponent as ReactLogo3 } from "../../assets/panorama.svg";
+import { ReactComponent as ReactLogo4 } from "../../assets/youtube.svg";
 import { ReactComponent as ReactLogoMap } from "../../assets/info.svg";
 
 import { createQRCodeURI, toggleLike, getCityInfo, toggleDislike } from "../../API/Requests";
@@ -190,7 +194,6 @@ function ResultCard(props) {
                                         : `${likes} pessoas curtiram essa cidade`}
                                 </div>
                             </CardContent>
-
                             <CardContent style={{ padding:'4px'}}>
                                 <div className='dislikes'>
                                     <IconButton
@@ -325,6 +328,31 @@ function ResultCard(props) {
                                         </a>
                                         <a href = {`https://www.dicasdeviagem.com/?s=${city.name}`}>
                                             <ReactLogoMap width={100} height={100}/>
+                                        </a>
+                                        <a href={`https://pt.wikipedia.org/wiki/${city.name}`}>
+                                          <ReactLogo />
+                                        </a>
+                                        <a
+                                          href={`https://www.instagram.com/explore/tags/${cityName
+                                            .split(" ")
+                                            .join("")}/`}
+                                        >
+                                          <ReactLogo1 className="insta_logo" />
+                                        </a>
+                                        <a
+                                          href={`https://www.facebook.com/search/places/?q=${city.name}`}
+                                        >
+                                          <ReactLogo2 className="insta_logo" />
+                                        </a>
+                                        <a
+                                          href={`https://www.google.com/search?q=${city.name}+fotos+cidade&sxsrf=ALeKk01RQe-7Q4UgGrTXi8QaHjGgEu8LTg:1606083309236&source=lnms&tbm=isch&sa=X&ved=2ahUKEwi-mYHJlpftAhV9F7kGHf0tCwUQ_AUoAnoECAUQBA&biw=1536&bih=722`}
+                                        >
+                                          <ReactLogo3 className="insta_logo" />
+                                        </a>
+                                        <a
+                                          href={`https://www.youtube.com/results?search_query=${city.name}+cidade`}
+                                        >
+                                          <ReactLogo4 className="insta_logo" />
                                         </a>
                                         </div>
                                         <IconButton
