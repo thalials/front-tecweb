@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should have SãoPaulo in redirect 1`] = `
+<div>
+  <Header />
+  <section
+    className="search-result-main"
+  >
+    <ResultCard
+      id="5fa0b349b20d4824443f6f2e"
+    />
+  </section>
+</div>
+`;

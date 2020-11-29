@@ -12,12 +12,12 @@ import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
-import { Favorite, FavoriteBorderOutlined } from "@material-ui/icons";
+import { Favorite, FavoriteBorderOutlined, ThumbUp, ThumbUpOutlined, ThumbDown, ThumbDownAltOutlined } from "@material-ui/icons";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
-import { createQRCodeURI, toggleLike, getCityInfo } from "../../API/Requests";
+import { createQRCodeURI, toggleLike, getCityInfo, toggleDislike } from "../../API/Requests";
 import { getCityId } from "../../Helpers";
 import "./styles.css";
 import Header from "../../Components/Header";
@@ -67,6 +67,8 @@ function ResultCard(props) {
     const [loading, setLoading] = useState(true);
     const [likedByMe, setLikedByMe] = useState(false);
     const [likes, setLikes] = useState(0);
+    const [dislikedByMe, setDislikedByMe] = useState(false);
+    const [dislikes, setDislikes] = useState(0);
     const [error, setError] = useState(false);
 
     const qrCodeURI = createQRCodeURI(window.location.href);
@@ -94,6 +96,17 @@ function ResultCard(props) {
         });
     }
 
+    async function handleDislike() {
+        toggleDislike(id).then((placeIsDisliked) => {
+            setDislikedByMe(placeIsDisliked);
+            if (placeIsDisliked) {
+                setDislikes((prev) => prev + 1);
+            } else {
+                setDislikes((prev) => prev - 1);
+            }
+        });
+    }
+
     const curTime = new Date().toLocaleString();
 
     useLayoutEffect(() => {
@@ -105,6 +118,8 @@ function ResultCard(props) {
                     setCity(city);
                     setLikes(city.likes);
                     setLikedByMe(city.likedByMe);
+                    setDislikes(city.dislikes);
+                    setDislikedByMe(city.dislikedByMe);
                 })
                 .catch(() => {
                     setError(true);
@@ -151,16 +166,7 @@ function ResultCard(props) {
                                     frameBorder='0'></iframe>
                             </CardMedia>
 
-                            <CardContent>
-                                <Typography
-                                    variant='body2'
-                                    color='textSecondary'
-                                    component='p'>
-                                    Clique para ver mais detalhes desse lugar =)
-                                </Typography>
-                            </CardContent>
-
-                            <CardActions disableSpacing>
+                            <CardContent style={{ padding:'4px'}}>
                                 <div className='likes'>
                                     <IconButton
                                         className='favorite'
@@ -168,9 +174,9 @@ function ResultCard(props) {
                                         onClick={handleLike}
                                         color='secondary'>
                                         {likedByMe ? (
-                                            <Favorite />
+                                            <ThumbUp />
                                         ) : (
-                                            <FavoriteBorderOutlined />
+                                            <ThumbUpOutlined />
                                         )}
                                     </IconButton>
                                     {likes === 0
@@ -181,6 +187,38 @@ function ResultCard(props) {
                                         ? 'Apenas você curtiu essa cidade'
                                         : `${likes} pessoas curtiram essa cidade`}
                                 </div>
+                            </CardContent>
+
+                            <CardContent style={{ padding:'4px'}}>
+                                <div className='dislikes'>
+                                    <IconButton
+                                        className='favorite'
+                                        aria-label='add to favorites'
+                                        onClick={handleDislike}
+                                        color='secondary'>
+                                        {dislikedByMe == true ? (
+                                            <ThumbDown />
+                                        ) : (
+                                            <ThumbDownAltOutlined />
+                                        )}
+                                    </IconButton>
+                                    {dislikes === 0
+                                        ? 'Ninguém descurtiu essa cidade ainda'
+                                        : dislikes === 1 && !dislikedByMe
+                                        ? 'Uma pessoa não curtiu essa cidade'
+                                        : dislikes === 1 && dislikedByMe
+                                        ? 'Apenas você não curtiu essa cidade'
+                                        : `${dislikes} pessoas não curtiram essa cidade`}
+                                </div>
+                            </CardContent>
+
+                            <CardActions disableSpacing>
+                                <Typography
+                                    variant='body2'
+                                    color='textSecondary'
+                                    component='p'>
+                                    Clique para ver mais detalhes desse lugar =)
+                                </Typography>
 
                                 <IconButton
                                     className={clsx(classes.expand, {
@@ -192,6 +230,7 @@ function ResultCard(props) {
                                     <ExpandMoreIcon />
                                 </IconButton>
                             </CardActions>
+
                             <Collapse
                                 in={expanded}
                                 timeout='auto'
