@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should intercept the request with a load indicator 1`] = `
+<Fragment>
+  <LoadingIndicator
+    width={30}
+  />
+</Fragment>
+`;
