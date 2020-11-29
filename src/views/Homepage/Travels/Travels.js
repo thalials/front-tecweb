@@ -36,7 +36,6 @@ import "./style.css";
 
 const description = localStorage.getItem('description');
 
-
 function Travels() {
   const [places, setPlaces] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -267,22 +266,22 @@ function DisplayPlace({ place }) {
                         
 
                         <div className='print-share'>
+                            <div className="wiki">
                             <Link to={`/${city._id}`}>
                                 <img
                                     src={qrCodeURI}
                                     className='share-qrcode'
-                                    width='150'
-                                    height='150'
+                                    width='100'
+                                    height='100'
                                 />
                             </Link>
-                            
-
                             <IconButton
                                 aria-label='share'
                                 onClick={() => window.print()}>
                                 <ShareIcon />
                             </IconButton>
                             Compartilhe com seus amigos e amigas!
+                            
                         </div>
                     </CardContent>
                 </Collapse>
