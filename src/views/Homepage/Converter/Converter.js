@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import TextField from "@material-ui/core/TextField";
 // import Typography from "@material-ui/core/Typography";
 import "./style.css";
@@ -7,42 +8,62 @@ import { Typography, Button } from "@material-ui/core";
 class Converter extends Component {
   constructor(props) {
     super(props);
-
+    
     this.state = {
       moedaA_valor: "",
       moedaB_valor: 0,
+      moedaA: "",
+      moedaB: ""
     };
 
     this.converter = this.converter.bind(this);
   }
 
   converter() {
-    let de_para = `${this.props.moedaA}_${this.props.moedaB}`;
+    var axios = require("axios").default;
 
-    let url = `https://free.currconv.com/api/v7/convert?q=${de_para}&compact=ultra&apiKey=20741cb2f37fb4f4958d`;
+    var options = {
+      method: 'GET',
+      url: 'https://currency-converter13.p.rapidapi.com/convert',
+      params: {from: this.state.moedaA, to: this.state.moedaB, amount: this.state.moedaA_valor},
+      headers: {
+        'x-rapidapi-key': 'aa394b6c07msh4aecdede9d91db9p156c6djsndda38dccc8b9',
+        'x-rapidapi-host': 'currency-converter13.p.rapidapi.com'
+      }
+    };
+    
+    axios.request(options).then(response => {
+      this.setState({moedaB_valor: response.data.amount})
+      console.log(response.data);
+      
+    }).catch(error => {
+      this.setState({moedaB_valor: "moeda ou valor invalido"})
+      console.error(error);
+    });
 
-    fetch(url)
-      .then((res) => {
-        return res.json();
-      })
-      .then((json) => {
-        let cotacao = json[de_para];
-        let moedaB_valor = (
-          parseFloat(this.state.moedaA_valor) * cotacao
-        ).toFixed(2);
-        this.setState({ moedaB_valor });
-      });
   }
 
   render() {
     return (
       <div className="conversor">
-          <span className="title-conversor">
-            <Typography>
-            {this.props.moedaA} para {this.props.moedaB}
-            </Typography>
-          </span>
-
+        <div className="input-valor">
+        <TextField
+          id="standard-basic"
+          label="Converter de"
+          onChange={(event) => {
+            this.setState({ moedaA: event.target.value });
+          }}
+        />
+        </div>
+        <div className="input-valor">
+        <TextField
+          id="standard-basic"
+          label="Converter para"
+          onChange={(event) => {
+            this.setState({ moedaB: event.target.value });
+          }}
+        />
+        </div>
         <div className="input-valor">
         <TextField
           id="standard-basic"
