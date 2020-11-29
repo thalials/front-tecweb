@@ -26,16 +26,11 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { ReactComponent as ReactLogo1 } from "../../../assets/instagram.svg";
 
-
 import { getCityId } from "../../../Helpers";
-
-
-
 
 import "./style.css";
 
-const description = localStorage.getItem('description');
-
+const description = localStorage.getItem("description");
 
 function Travels() {
   const [places, setPlaces] = useState(null);
@@ -47,29 +42,23 @@ function Travels() {
     });
   }, []);
 
-
-    return (
-        <div className="outer">
-            <div className='description-container'>
-            <div className='description-title'>
-                <p> Descrição do seu perfil</p>
-            </div>
-            <span className='description'>{description}</span>
-
-
-            </div>
-            <div className='travels-outer-container'>
-                {loading ? (
-                    <LoadingIndicator width={30} />
-                ) : (
-                    places.map((place) => (
-                        <DisplayPlace key={place._id} place={place} />
-                    ))
-                )}
-            </div>
+  return (
+    <div className="outer">
+      <div className="description-container">
+        <div className="description-title">
+          <p> Descrição do seu perfil</p>
         </div>
-    );
-
+        <span className="description">{description}</span>
+      </div>
+      <div className="travels-outer-container">
+        {loading ? (
+          <LoadingIndicator width={30} />
+        ) : (
+          places.map((place) => <DisplayPlace key={place._id} place={place} />)
+        )}
+      </div>
+    </div>
+  );
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -247,49 +236,39 @@ function DisplayPlace({ place }) {
               </ul>
             </div>
 
-                        {notes.map((note) => (
-                            <Note
-                                key={note._id || 'EmptyNote'}
-                                data={note}
-                                removeFromList={removeFromList}
-                                fixLastAdded={fixLastAdded}
-                                writable={note.writable || false}
-                            />
-                        ))}
- 
-
+            {notes.map((note) => (
+              <Note
+                key={note._id || "EmptyNote"}
+                data={note}
+                removeFromList={removeFromList}
+                fixLastAdded={fixLastAdded}
+                writable={note.writable || false}
+              />
+            ))}
 
             <div className="add-notes">
               <button onClick={addNote}>Adicionar uma nota</button>
             </div>
 
-
-                        
-
-                        <div className='print-share'>
-                            <Link to={`/${city._id}`}>
-                                <img
-                                    src={qrCodeURI}
-                                    className='share-qrcode'
-                                    width='150'
-                                    height='150'
-                                />
-                            </Link>
-                            
-
-                            <IconButton
-                                aria-label='share'
-                                onClick={() => window.print()}>
-                                <ShareIcon />
-                            </IconButton>
-                            Compartilhe com seus amigos e amigas!
-                        </div>
-                    </CardContent>
-                </Collapse>
-            </Card>
-        </div>
-    );
-
+            <div className="print-share">
+              <Link to={`/${city._id}`}>
+                <img
+                  src={qrCodeURI}
+                  className="share-qrcode"
+                  width="100"
+                  height="100"
+                />
+              </Link>
+              <IconButton aria-label="share" onClick={() => window.print()}>
+                <ShareIcon />
+              </IconButton>
+              Compartilhe com seus amigos e amigas!
+            </div>
+          </CardContent>
+        </Collapse>
+      </Card>
+    </div>
+  );
 }
 
 export default Travels;

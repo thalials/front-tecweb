@@ -41,7 +41,6 @@ function HorizontalTabs() {
                     <div className='converter-outer-container '>
                         {' '}
                         <Converter moedaA='USD' moedaB='BRL' />{' '}
-                        <Converter moedaA='BRL' moedaB='USD' />{' '}
                     </div>
                 )}
                 {/* {index === 3 && <span>esta é a tab 3</span>} */}
