@@ -18,6 +18,10 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { ReactComponent as ReactLogo } from "../../assets/logo_wiki.svg";
 import { ReactComponent as ReactLogo1 } from "../../assets/instagram.svg";
+import { ReactComponent as ReactLogo2 } from "../../assets/facebook.svg";
+import { ReactComponent as ReactLogo3 } from "../../assets/panorama.svg";
+import { ReactComponent as ReactLogo4 } from "../../assets/youtube.svg";
+import { ReactComponent as ReactLogoMap } from "../../assets/info.svg";
 
 import { createQRCodeURI, toggleLike, getCityInfo } from "../../API/Requests";
 import { getCityId } from "../../Helpers";
@@ -283,6 +287,9 @@ function ResultCard(props) {
                         href={`https://www.youtube.com/results?search_query=${city.name}+cidade`}
                       >
                         <ReactLogo4 className="insta_logo" />
+                      </a>
+                      <a href={`https://www.dicasdeviagem.com/?s=${city.name}`}>
+                        <ReactLogoMap width={100} height={100} />
                       </a>
                     </div>
                     <IconButton
