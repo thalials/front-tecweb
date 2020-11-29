@@ -269,6 +269,21 @@ function ResultCard(props) {
                       >
                         <ReactLogo1 className="insta_logo" />
                       </a>
+                      <a
+                        href={`https://www.facebook.com/search/places/?q=${city.name}`}
+                      >
+                        <ReactLogo2 className="insta_logo" />
+                      </a>
+                      <a
+                        href={`https://www.google.com/search?q=${city.name}+fotos+cidade&sxsrf=ALeKk01RQe-7Q4UgGrTXi8QaHjGgEu8LTg:1606083309236&source=lnms&tbm=isch&sa=X&ved=2ahUKEwi-mYHJlpftAhV9F7kGHf0tCwUQ_AUoAnoECAUQBA&biw=1536&bih=722`}
+                      >
+                        <ReactLogo3 className="insta_logo" />
+                      </a>
+                      <a
+                        href={`https://www.youtube.com/results?search_query=${city.name}+cidade`}
+                      >
+                        <ReactLogo4 className="insta_logo" />
+                      </a>
                     </div>
                     <IconButton
                       aria-label="share"
