@@ -26,9 +26,20 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { ReactComponent as ReactLogo1 } from "../../../assets/instagram.svg";
 
+
 import { getCityId } from "../../../Helpers";
 
+import { ReactComponent as fblogo } from '../../facebook.svg';
+import { ReactComponent as ytlogo } from '../../youtube.svg';
+import { ReactComponent as fotologo } from '../../panorama.svg';
+
+
+
+
 import "./style.css";
+
+const description = localStorage.getItem('description');
+
 
 function Travels() {
   const [places, setPlaces] = useState(null);
@@ -40,15 +51,29 @@ function Travels() {
     });
   }, []);
 
-  return (
-    <div className="travels-outer-container">
-      {loading ? (
-        <LoadingIndicator width={30} />
-      ) : (
-        places.map((place) => <DisplayPlace key={place._id} place={place} />)
-      )}
-    </div>
-  );
+
+    return (
+        <div className="outer">
+            <div className='description-container'>
+            <div className='description-title'>
+                <p> Descrição do seu perfil</p>
+            </div>
+            <span className='description'>{description}</span>
+
+
+            </div>
+            <div className='travels-outer-container'>
+                {loading ? (
+                    <LoadingIndicator width={30} />
+                ) : (
+                    places.map((place) => (
+                        <DisplayPlace key={place._id} place={place} />
+                    ))
+                )}
+            </div>
+        </div>
+    );
+
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -226,39 +251,68 @@ function DisplayPlace({ place }) {
               </ul>
             </div>
 
-            {notes.map((note) => (
-              <Note
-                key={note._id || "EmptyNote"}
-                data={note}
-                removeFromList={removeFromList}
-                fixLastAdded={fixLastAdded}
-                writable={note.writable || false}
-              />
-            ))}
+
+                        <div className = "lk">
+                            <a href ={`https://www.facebook.com/search/places/?q=${city.name}`}>
+                                Facebook page
+                            </a>
+                        </div>
+
+                        <div className = "lk">
+                            <a href ={`https://www.google.com/search?q=${city.name}+fotos&sxsrf=ALeKk01RQe-7Q4UgGrTXi8QaHjGgEu8LTg:1606083309236&source=lnms&tbm=isch&sa=X&ved=2ahUKEwi-mYHJlpftAhV9F7kGHf0tCwUQ_AUoAnoECAUQBA&biw=1536&bih=722`}>
+                                + Fotos
+                            </a>
+                        </div>
+
+                        <div className = "lk">
+                            <a href ={`https://www.youtube.com/results?search_query=${city.name}`}>
+                                Youtube
+                            </a>
+                        </div>
+
+                        {notes.map((note) => (
+                            <Note
+                                key={note._id || 'EmptyNote'}
+                                data={note}
+                                removeFromList={removeFromList}
+                                fixLastAdded={fixLastAdded}
+                                writable={note.writable || false}
+                            />
+                        ))}
+ 
+
 
             <div className="add-notes">
               <button onClick={addNote}>Adicionar uma nota</button>
             </div>
 
-            <div className="print-share">
-              <Link to={`/${city._id}`}>
-                <img
-                  src={qrCodeURI}
-                  className="share-qrcode"
-                  width="150"
-                  height="150"
-                />
-              </Link>
-              <IconButton aria-label="share" onClick={() => window.print()}>
-                <ShareIcon />
-              </IconButton>
-              Compartilhe com seus amigos e amigas!
-            </div>
-          </CardContent>
-        </Collapse>
-      </Card>
-    </div>
-  );
+
+                        
+
+                        <div className='print-share'>
+                            <Link to={`/${city._id}`}>
+                                <img
+                                    src={qrCodeURI}
+                                    className='share-qrcode'
+                                    width='150'
+                                    height='150'
+                                />
+                            </Link>
+                            
+
+                            <IconButton
+                                aria-label='share'
+                                onClick={() => window.print()}>
+                                <ShareIcon />
+                            </IconButton>
+                            Compartilhe com seus amigos e amigas!
+                        </div>
+                    </CardContent>
+                </Collapse>
+            </Card>
+        </div>
+    );
+
 }
 
 export default Travels;
