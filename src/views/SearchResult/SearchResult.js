@@ -12,12 +12,18 @@ import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
-import { Favorite, FavoriteBorderOutlined } from "@material-ui/icons";
+import { Favorite, FavoriteBorderOutlined, ThumbUp, ThumbUpOutlined, ThumbDown, ThumbDownAltOutlined } from "@material-ui/icons";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import { ReactComponent as ReactLogo } from "../../assets/logo_wiki.svg";
+import { ReactComponent as ReactLogo1 } from "../../assets/instagram.svg";
+import { ReactComponent as ReactLogo2 } from "../../assets/facebook.svg";
+import { ReactComponent as ReactLogo3 } from "../../assets/panorama.svg";
+import { ReactComponent as ReactLogo4 } from "../../assets/youtube.svg";
+import { ReactComponent as ReactLogoMap } from "../../assets/info.svg";
 
-import { createQRCodeURI, toggleLike, getCityInfo } from "../../API/Requests";
+import { createQRCodeURI, toggleLike, getCityInfo, toggleDislike } from "../../API/Requests";
 import { getCityId } from "../../Helpers";
 import "./styles.css";
 import Header from "../../Components/Header";
@@ -67,6 +73,8 @@ function ResultCard(props) {
     const [loading, setLoading] = useState(true);
     const [likedByMe, setLikedByMe] = useState(false);
     const [likes, setLikes] = useState(0);
+    const [dislikedByMe, setDislikedByMe] = useState(false);
+    const [dislikes, setDislikes] = useState(0);
     const [error, setError] = useState(false);
 
     const qrCodeURI = createQRCodeURI(window.location.href);
@@ -94,6 +102,17 @@ function ResultCard(props) {
         });
     }
 
+    async function handleDislike() {
+        toggleDislike(id).then((placeIsDisliked) => {
+            setDislikedByMe(placeIsDisliked);
+            if (placeIsDisliked) {
+                setDislikes((prev) => prev + 1);
+            } else {
+                setDislikes((prev) => prev - 1);
+            }
+        });
+    }
+
     const curTime = new Date().toLocaleString();
 
     useLayoutEffect(() => {
@@ -105,6 +124,8 @@ function ResultCard(props) {
                     setCity(city);
                     setLikes(city.likes);
                     setLikedByMe(city.likedByMe);
+                    setDislikes(city.dislikes);
+                    setDislikedByMe(city.dislikedByMe);
                 })
                 .catch(() => {
                     setError(true);
@@ -151,16 +172,7 @@ function ResultCard(props) {
                                     frameBorder='0'></iframe>
                             </CardMedia>
 
-                            <CardContent>
-                                <Typography
-                                    variant='body2'
-                                    color='textSecondary'
-                                    component='p'>
-                                    Clique para ver mais detalhes desse lugar =)
-                                </Typography>
-                            </CardContent>
-
-                            <CardActions disableSpacing>
+                            <CardContent style={{ padding:'4px'}}>
                                 <div className='likes'>
                                     <IconButton
                                         className='favorite'
@@ -168,9 +180,9 @@ function ResultCard(props) {
                                         onClick={handleLike}
                                         color='secondary'>
                                         {likedByMe ? (
-                                            <Favorite />
+                                            <ThumbUp />
                                         ) : (
-                                            <FavoriteBorderOutlined />
+                                            <ThumbUpOutlined />
                                         )}
                                     </IconButton>
                                     {likes === 0
@@ -181,6 +193,37 @@ function ResultCard(props) {
                                         ? 'Apenas você curtiu essa cidade'
                                         : `${likes} pessoas curtiram essa cidade`}
                                 </div>
+                            </CardContent>
+                            <CardContent style={{ padding:'4px'}}>
+                                <div className='dislikes'>
+                                    <IconButton
+                                        className='favorite'
+                                        aria-label='add to favorites'
+                                        onClick={handleDislike}
+                                        color='secondary'>
+                                        {dislikedByMe == true ? (
+                                            <ThumbDown />
+                                        ) : (
+                                            <ThumbDownAltOutlined />
+                                        )}
+                                    </IconButton>
+                                    {dislikes === 0
+                                        ? 'Ninguém descurtiu essa cidade ainda'
+                                        : dislikes === 1 && !dislikedByMe
+                                        ? 'Uma pessoa não curtiu essa cidade'
+                                        : dislikes === 1 && dislikedByMe
+                                        ? 'Apenas você não curtiu essa cidade'
+                                        : `${dislikes} pessoas não curtiram essa cidade`}
+                                </div>
+                            </CardContent>
+
+                            <CardActions disableSpacing>
+                                <Typography
+                                    variant='body2'
+                                    color='textSecondary'
+                                    component='p'>
+                                    Clique para ver mais detalhes desse lugar =)
+                                </Typography>
 
                                 <IconButton
                                     className={clsx(classes.expand, {
@@ -192,6 +235,7 @@ function ResultCard(props) {
                                     <ExpandMoreIcon />
                                 </IconButton>
                             </CardActions>
+
                             <Collapse
                                 in={expanded}
                                 timeout='auto'
@@ -279,6 +323,38 @@ function ResultCard(props) {
                                             width='150'
                                             height='150'
                                         />
+                                        <a href ={`https://pt.wikipedia.org/wiki/${city.name}`}>
+                                            <ReactLogo/>
+                                        </a>
+                                        <a href = {`https://www.dicasdeviagem.com/?s=${city.name}`}>
+                                            <ReactLogoMap width={100} height={100}/>
+                                        </a>
+                                        <a href={`https://pt.wikipedia.org/wiki/${city.name}`}>
+                                          <ReactLogo />
+                                        </a>
+                                        <a
+                                          href={`https://www.instagram.com/explore/tags/${cityName
+                                            .split(" ")
+                                            .join("")}/`}
+                                        >
+                                          <ReactLogo1 className="insta_logo" />
+                                        </a>
+                                        <a
+                                          href={`https://www.facebook.com/search/places/?q=${city.name}`}
+                                        >
+                                          <ReactLogo2 className="insta_logo" />
+                                        </a>
+                                        <a
+                                          href={`https://www.google.com/search?q=${city.name}+fotos+cidade&sxsrf=ALeKk01RQe-7Q4UgGrTXi8QaHjGgEu8LTg:1606083309236&source=lnms&tbm=isch&sa=X&ved=2ahUKEwi-mYHJlpftAhV9F7kGHf0tCwUQ_AUoAnoECAUQBA&biw=1536&bih=722`}
+                                        >
+                                          <ReactLogo3 className="insta_logo" />
+                                        </a>
+                                        <a
+                                          href={`https://www.youtube.com/results?search_query=${city.name}+cidade`}
+                                        >
+                                          <ReactLogo4 className="insta_logo" />
+                                        </a>
+                                        </div>
                                         <IconButton
                                             aria-label='share'
                                             onClick={() => window.print()}>
