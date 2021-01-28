@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should Have Description 1`] = `
+<div
+  className="outer"
+>
+  <div
+    className="description-container"
+  >
+    <div
+      className="description-title"
+    >
+      <p>
+         Descrição do seu perfil
+      </p>
+    </div>
+    <span
+      className="description"
+    />
+  </div>
+  <div
+    className="travels-outer-container"
+  >
+    <LoadingIndicator
+      width={30}
+    />
+  </div>
+</div>
+`;

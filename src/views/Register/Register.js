@@ -11,6 +11,7 @@ export default function Register() {
     const name = useRef('');
     const email = useRef('');
     const password = useRef('');
+    const description = useRef('');
     const [loading, setLoading] = useState(false);
     const [feedback, setFeedback] = useState({});
     const { handleRegister, handleLogout, authenticated } = useContext(Context);
@@ -79,6 +80,22 @@ export default function Register() {
                         className: 'text-field-label'
                     }}
                 />
+                <TextField
+                    onChange={(e) => {
+                        description.current = e.target.value;
+                    }}
+                    label='Description'
+                    variant='outlined'
+                    margin='dense'
+                    size='small'
+                    fullWidth={true}
+                    InputProps={{
+                        className: 'text-field'
+                    }}
+                    InputLabelProps={{
+                        className: 'text-field-label'
+                    }}
+                />
                 <div className='register-element'>
                     {!loading && !!Object.values(feedback).length ? (
                         <Feedback feedback={feedback} />
@@ -92,7 +109,8 @@ export default function Register() {
                             handleRegister(
                                 name.current,
                                 email.current,
-                                password.current
+                                password.current,
+                                description.current
                             )
                                 .then((message) => {
                                     setFeedback(message);
